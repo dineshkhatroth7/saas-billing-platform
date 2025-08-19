@@ -22,3 +22,23 @@ def add_tenant(name):
     save_data(data)
     return tenant
 
+
+def add_subscription(tenant_id, plan):
+    data = load_data()
+
+    if not any(t["id"] == tenant_id for t in data["tenants"]):
+      return {"error": f"Tenant ID {tenant_id} not found."}
+
+    if any(s["tenant_id"] == tenant_id for s in data["subscriptions"]):
+      return {"error": f"Tenant {tenant_id} already has a subscription."}
+
+    sub_id = len(data["subscriptions"]) + 1
+    subscription = {
+        "id": sub_id,
+        "tenant_id": tenant_id,
+        "plan": plan,
+        "start_date": str(datetime.now())
+    }
+    data["subscriptions"].append(subscription)
+    save_data(data)
+    return subscription
