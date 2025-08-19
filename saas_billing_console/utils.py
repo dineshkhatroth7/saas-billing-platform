@@ -42,3 +42,35 @@ def add_subscription(tenant_id, plan):
     data["subscriptions"].append(subscription)
     save_data(data)
     return subscription
+
+
+def record_usage(tenant_id, feature, count):
+    data = load_data()
+
+    tenant = next((t for t in data["tenants"] if t["id"] == tenant_id), None)
+    
+    if not tenant:
+        return {"error": f"Tenant ID {tenant_id} not found."}
+
+    subscription = next((s for s in data["subscriptions"] if s["tenant_id"] == tenant_id), None)
+    if not subscription:
+        return {"error": f"Tenant {tenant_id} has no active subscription."}
+
+    plan = subscription["plan"]
+    allowed_features = data["plans"].get(plan, [])
+    if feature not in allowed_features:
+        return {"error": f"Feature '{feature}' is not allowed for plan '{plan}'."}
+
+    usage_id = len(data["usage"]) + 1
+    usage = {
+        "id": usage_id,
+        "tenant_id": tenant_id,
+        "feature": feature,
+        "count": count,
+        "timestamp": str(datetime.now())
+    }
+    data["usage"].append(usage)
+    save_data(data)
+
+    return usage
+

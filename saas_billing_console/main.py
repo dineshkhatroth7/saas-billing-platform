@@ -1,12 +1,13 @@
 
-from utils import add_tenant,add_subscription
+from utils import add_tenant,add_subscription,record_usage,load_data
 
 def main():
     while True:
         print("\n--- SaaS Billing Console ---")
         print("1. Add Tenant")
         print("2. Add Subscription")
-        print("3. Exit")
+        print("3. Record Usage")
+        print("4. Exit")
 
 
         
@@ -23,9 +24,37 @@ def main():
             subscription = add_subscription(tenant_id, plan)
             print(f"Subscription Added: {subscription}")
 
+      
         elif choice == "3":
+            tenant_id = int(input("Tenant ID: "))
+            data = load_data()
+
+            subscription = next((s for s in data["subscriptions"] if s["tenant_id"] == tenant_id), None)
+            if not subscription:
+                print(f"Tenant {tenant_id} has no active subscription.")
+                continue
+
+            plan = subscription["plan"]
+            allowed_features = data["plans"].get(plan, [])
+
+            print(f"\nTenant {tenant_id} is on '{plan}' plan.")
+            print("Allowed Features:")
+            for i, feat in enumerate(allowed_features, start=1):
+                print(f" {i}. {feat}")
+
+            feature = input("Enter Feature Used: ")
+            count = int(input("Usage Count: "))
+
+            result = record_usage(tenant_id, feature, count)
+            if "error" in result:
+                print(f"{result['error']}")
+            else:
+                print(f"Usage Recorded: {result}")
+        
+        elif choice == "4":
             print("Exiting")
             break    
+ 
 
         else:
             print("Invalid choice, try again.")
