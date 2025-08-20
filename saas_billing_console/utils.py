@@ -1,6 +1,6 @@
 
 import json
-from datetime import datetime
+from datetime import datetime,timedelta
 
 DATA_FILE = "data.json"
 
@@ -37,7 +37,8 @@ def add_subscription(tenant_id, plan):
         "id": sub_id,
         "tenant_id": tenant_id,
         "plan": plan,
-        "start_date": str(datetime.now())
+        "start_date": str(datetime.now()),
+        "billing_cycle_start": str(datetime.now())
     }
     data["subscriptions"].append(subscription)
     save_data(data)
@@ -100,4 +101,35 @@ def calculate_billing(tenant_id):
             break
 
     return round(billing, 2)
+
+def reset_monthly_usage():
+    data = load_data()
+    now = datetime.now()
+    reset_tenants = []
+
+    for sub in data["subscriptions"]:
+        cycle_str = sub.get("start_date")
+
+        if not cycle_str:
+            continue  
+
+        start_date = datetime.fromisoformat(cycle_str)
+
+        if (now - start_date).days >= 30:
+            tenant_id = sub["tenant_id"]
+
+            tenant_name = next(
+                (t["name"] for t in data["tenants"] if t["id"] == tenant_id),
+                "Unknown"
+            )
+            data["usage"] = [u for u in data["usage"] if u["tenant_id"] != tenant_id]
+            sub["billing_cycle_start"] = now.isoformat()
+            reset_tenants.append({
+                "id": tenant_id,
+                "name": tenant_name,
+                "new_cycle_start": now.isoformat()
+            })
+    
+    save_data(data)
+    return reset_tenants
 

@@ -1,5 +1,5 @@
 
-from utils import add_tenant,add_subscription,record_usage,load_data,calculate_billing
+from utils import add_tenant,add_subscription,record_usage,load_data,calculate_billing,reset_monthly_usage
 
 def main():
     while True:
@@ -7,7 +7,9 @@ def main():
         print("1. Add Tenant")
         print("2. Add Subscription")
         print("3. Record Usage")
-        print("4. Exit")
+        print("4. View Usage Summary")
+        print("5. Run Monthly Reset")
+        print("6. Exit")
 
 
         
@@ -52,8 +54,33 @@ def main():
                 billing = calculate_billing(tenant_id)
                 print(f"Usage Recorded: {result}")
                 print(f"Current Billing: ${billing}")
-        
-        elif choice == "4":
+
+        elif choice=="4":
+            tenant_id=int(input("Tenant ID:"))
+            data = load_data()
+            usage_list = [u for u in data["usage"] if u["tenant_id"] == tenant_id]
+            if not usage_list:
+                print("No usage recorded yet.")
+            else:
+                print(f"\nUsage Summary for Tenant {tenant_id}:")
+                for u in usage_list:
+                    print(f"- {u['feature']}: {u['count']} times on {u['timestamp']}")
+                billing = calculate_billing(tenant_id)
+                print(f" Total Billing: ${billing}")
+
+         
+        elif choice == "5":
+            tenants_reset = reset_monthly_usage()
+            if tenants_reset:   
+                print("Monthly usage reset for tenants:")
+            for t in tenants_reset:
+                print(f"- ID: {t['id']} | Name: {t['name']}")
+                print(f"  New Cycle Start: {t['new_cycle_start']}")
+            else:   
+                print("No tenants due for reset.")
+
+
+        elif choice == "6":
             print("Exiting")
             break    
  
