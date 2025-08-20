@@ -1,5 +1,5 @@
 
-from utils import add_tenant,add_subscription,record_usage,load_data,calculate_billing,reset_monthly_usage
+from utils import add_tenant,add_subscription,record_usage,load_data,calculate_billing,reset_monthly_usage,get_cycle_info
 
 def main():
     while True:
@@ -75,12 +75,23 @@ def main():
 
         elif choice=="4":
             tenant_id=int(input("Tenant ID:"))
+            try:
+                cycle_start, next_reset = get_cycle_info(tenant_id)
+            except ValueError as e:
+                print(e)
+                continue
             data = load_data()
+            sub = next((s for s in data["subscriptions"] if s["tenant_id"] == tenant_id), None)
+            plan = sub["plan"]
             usage_list = [u for u in data["usage"] if u["tenant_id"] == tenant_id]
+
+            print(f"\nUsage Summary for Tenant {tenant_id} (plan: {plan})")
+            if cycle_start and next_reset:
+                print(f"Cycle: {cycle_start.date()} → {next_reset.date()}")
+
             if not usage_list:
                 print("No usage recorded yet.")
-            else:
-                print(f"\nUsage Summary for Tenant {tenant_id}:")
+            else:           
                 for u in usage_list:
                     print(f"- {u['feature']}: {u['count']} times on {u['timestamp']}")
                 billing = calculate_billing(tenant_id)

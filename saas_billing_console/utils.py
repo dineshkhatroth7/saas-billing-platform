@@ -133,3 +133,14 @@ def reset_monthly_usage():
     save_data(data)
     return reset_tenants
 
+
+def get_cycle_info(tenant_id):
+    data = load_data()
+    sub = next((s for s in data["subscriptions"] if s["tenant_id"] == tenant_id), None)
+    if not sub:
+         raise ValueError(f"No subscription found for tenant_id={tenant_id}")
+    
+    start = sub.get("billing_cycle_start") or sub.get("start_date")
+    start_dt = datetime.fromisoformat(start)
+    next_dt = start_dt + timedelta(days=30)
+    return start_dt, next_dt
