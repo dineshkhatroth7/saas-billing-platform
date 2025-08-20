@@ -66,7 +66,8 @@
             "id": 6,
             "tenant_id": 5,
             "plan": "premium",
-            "start_date": "2025-08-19 21:57:59.839361"
+            "start_date": "2025-06-19 21:57:59.839361",
+            "billing_cycle_start": "2025-08-20T13:28:04.878387"
         },
         {
             "id": 7,
@@ -96,27 +97,6 @@
             "feature": "api_calls",
             "count": 20,
             "timestamp": "2025-08-19 16:50:36.159256"
-        },
-        {
-            "id": 4,
-            "tenant_id": 5,
-            "feature": "storage",
-            "count": 20,
-            "timestamp": "2025-08-19 22:00:19.852199"
-        },
-        {
-            "id": 5,
-            "tenant_id": 5,
-            "feature": "storage",
-            "count": 10,
-            "timestamp": "2025-08-19 22:24:03.534440"
-        },
-        {
-            "id": 6,
-            "tenant_id": 5,
-            "feature": "storage",
-            "count": 10,
-            "timestamp": "2025-08-19 22:24:41.003444"
         },
         {
             "id": 7,
