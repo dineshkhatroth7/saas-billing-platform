@@ -1,5 +1,5 @@
 
-from utils import add_tenant,add_subscription,record_usage,load_data
+from utils import add_tenant,add_subscription,record_usage,load_data,calculate_billing
 
 def main():
     while True:
@@ -49,7 +49,9 @@ def main():
             if "error" in result:
                 print(f"{result['error']}")
             else:
+                billing = calculate_billing(tenant_id)
                 print(f"Usage Recorded: {result}")
+                print(f"Current Billing: ${billing}")
         
         elif choice == "4":
             print("Exiting")

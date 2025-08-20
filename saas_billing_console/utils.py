@@ -74,3 +74,30 @@ def record_usage(tenant_id, feature, count):
 
     return usage
 
+
+def calculate_billing(tenant_id):
+    data = load_data()
+    subscription = next((s for s in data["subscriptions"] if s["tenant_id"] == tenant_id), None)
+    if not subscription:
+         return 0.0
+    
+    plan = subscription["plan"]
+    usage_list = [u for u in data["usage"] if u["tenant_id"] == tenant_id]
+
+    billing = 0.0
+    for u in usage_list:
+        if plan == "free":
+            if u["feature"] == "api_calls":
+                billing += max(0, u["count"] - 100) * 0.01
+
+        elif plan == "premium":
+            if u["feature"] == "api_calls":
+                billing += u["count"] * 0.01
+            elif u["feature"] == "storage":
+                billing += u["count"] * 0.05
+        elif plan == "enterprise":
+            billing = 100  
+            break
+
+    return round(billing, 2)
+
