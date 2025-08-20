@@ -22,7 +22,10 @@ def main():
 
         elif choice == "2":
             tenant_id = int(input("Tenant ID: "))
-            plan = input("Subscription Plan (Free/Premium/Enterprise): ")
+            plan = input("Subscription Plan (Free/Premium/Enterprise): ").strip().lower()
+            if plan not in ("free", "premium", "enterprise"):
+                print("Invalid plan. Use: free, premium, enterprise.")
+                continue
             subscription = add_subscription(tenant_id, plan)
             print(f"Subscription Added: {subscription}")
 
@@ -44,8 +47,23 @@ def main():
             for i, feat in enumerate(allowed_features, start=1):
                 print(f" {i}. {feat}")
 
-            feature = input("Enter Feature Used: ")
-            count = int(input("Usage Count: "))
+            try:
+                idx = int(input("Choose feature number: "))
+                if not (1 <= idx <= len(allowed_features)):
+                    raise ValueError
+                feature = allowed_features[idx - 1]
+            except ValueError:
+                 print("Invalid selection.")
+                 continue
+
+
+            try:
+               count = int(input("Usage Count: "))
+               if count < 0:
+                    raise ValueError
+            except ValueError:
+                print("Invalid count. Must be a non-negative integer.")
+                continue
 
             result = record_usage(tenant_id, feature, count)
             if "error" in result:

@@ -29,6 +29,11 @@
             "id": 6,
             "name": "smith",
             "created_at": "2025-08-20 10:54:59.356186"
+        },
+        {
+            "id": 7,
+            "name": "Hr department",
+            "created_at": "2025-08-20 14:10:36.741403"
         }
     ],
     "subscriptions": [
@@ -74,6 +79,13 @@
             "tenant_id": 6,
             "plan": "enterprise",
             "start_date": "2025-08-20 10:55:20.006271"
+        },
+        {
+            "id": 8,
+            "tenant_id": 7,
+            "plan": "premium",
+            "start_date": "2025-08-20 14:11:05.277751",
+            "billing_cycle_start": "2025-08-20 14:11:05.277767"
         }
     ],
     "usage": [
@@ -104,6 +116,13 @@
             "feature": "storage",
             "count": 10,
             "timestamp": "2025-08-20 10:55:39.706242"
+        },
+        {
+            "id": 5,
+            "tenant_id": 7,
+            "feature": "api_calls",
+            "count": 21,
+            "timestamp": "2025-08-20 14:13:40.495705"
         }
     ],
     "plans": {
