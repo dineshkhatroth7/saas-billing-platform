@@ -1,5 +1,5 @@
 
-import json
+import json,csv
 from datetime import datetime,timedelta
 
 DATA_FILE = "data.json"
@@ -144,3 +144,25 @@ def get_cycle_info(tenant_id):
     start_dt = datetime.fromisoformat(start)
     next_dt = start_dt + timedelta(days=30)
     return start_dt, next_dt
+
+def export_usage_report(tenant_id, format="csv"):
+    data = load_data()
+    usage_list = [u for u in data["usage"] if u["tenant_id"] == tenant_id]
+
+    if not usage_list:
+        return {"error": "No usage recorded."}
+    
+    
+    filename = f"usage_tenant_{tenant_id}.{format}"
+
+    if format == "csv":
+        with open(filename, "w", newline="") as f:
+            writer = csv.DictWriter(f, fieldnames=["id", "tenant_id", "feature", "count", "timestamp"])
+            writer.writeheader()
+            writer.writerows(usage_list)
+    
+    elif format == "json":
+        with open(filename, "w") as f:
+            json.dump(usage_list, f, indent=4)
+    
+    return {"message": f"Report exported to {filename}"}
