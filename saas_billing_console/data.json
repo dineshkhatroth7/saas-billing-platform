@@ -184,6 +184,20 @@
             "feature": "api_calls",
             "count": 20,
             "timestamp": "2025-08-21 17:37:41.099752"
+        },
+        {
+            "id": 13,
+            "tenant_id": 7,
+            "feature": "storage",
+            "count": 300,
+            "timestamp": "2025-08-21 19:22:27.693652"
+        },
+        {
+            "id": 14,
+            "tenant_id": 7,
+            "feature": "storage",
+            "count": 300,
+            "timestamp": "2025-08-21 19:22:49.637349"
         }
     ],
     "plans": {

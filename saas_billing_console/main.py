@@ -1,5 +1,5 @@
 
-from utils import add_tenant,add_subscription,record_usage,load_data,calculate_billing,reset_monthly_usage,get_cycle_info,export_usage_report
+from utils import add_tenant,add_subscription,record_usage,load_data,calculate_billing,reset_monthly_usage,get_cycle_info,export_usage_report,view_all_tenants_analytics
 
 def main():
     while True:
@@ -10,7 +10,8 @@ def main():
         print("4. View Usage Summary")
         print("5. Run Monthly Reset")
         print("6. Export Reports")
-        print("7. Exit")
+        print("7. View All Tenants Analytics")
+        print("8. Exit")
 
 
         
@@ -124,7 +125,13 @@ def main():
             print(result.get("message", result.get("error")))
 
 
+
         elif choice == "7":
+            print("\n=== All Tenants Analytics ===")
+            print(view_all_tenants_analytics())
+
+
+        elif choice == "8":
             print("Exiting")
             break    
  
