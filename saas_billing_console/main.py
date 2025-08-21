@@ -41,12 +41,19 @@ def main():
                 continue
 
             plan = subscription["plan"]
-            allowed_features = data["plans"].get(plan, [])
+            plan_info = data["plans"].get(plan, {})
+            allowed_features = plan_info.get("features", [])
+            quotas = plan_info.get("quotas", {})
+
 
             print(f"\nTenant {tenant_id} is on '{plan}' plan.")
             print("Allowed Features:")
             for i, feat in enumerate(allowed_features, start=1):
-                print(f" {i}. {feat}")
+                quota = quotas.get(feat, None)
+                if quota is None:
+                    print(f" {i}. {feat} (Unlimited)")
+                else:
+                    print(f" {i}. {feat} (Limit: {quota})")
 
             try:
                 idx = int(input("Choose feature number: "))
@@ -103,9 +110,9 @@ def main():
             tenants_reset = reset_monthly_usage()
             if tenants_reset:   
                 print("Monthly usage reset for tenants:")
-            for t in tenants_reset:
-                print(f"- ID: {t['id']} | Name: {t['name']}")
-                print(f"  New Cycle Start: {t['new_cycle_start']}")
+                for t in tenants_reset:
+                    print(f"- ID: {t['id']} | Name: {t['name']}")
+                    print(f"  New Cycle Start: {t['new_cycle_start']}")
             else:   
                 print("No tenants due for reset.")
 

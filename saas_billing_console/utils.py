@@ -46,22 +46,40 @@ def add_subscription(tenant_id, plan):
 
 
 def record_usage(tenant_id, feature, count):
+    
     data = load_data()
-
     tenant = next((t for t in data["tenants"] if t["id"] == tenant_id), None)
     
     if not tenant:
         return {"error": f"Tenant ID {tenant_id} not found."}
 
     subscription = next((s for s in data["subscriptions"] if s["tenant_id"] == tenant_id), None)
+    
     if not subscription:
         return {"error": f"Tenant {tenant_id} has no active subscription."}
 
     plan = subscription["plan"]
-    allowed_features = data["plans"].get(plan, [])
+    plan_info = data["plans"].get(plan, {})
+    allowed_features =  plan_info.get("features", [])
+    quotas = plan_info.get("quotas", {})
+    
     if feature not in allowed_features:
         return {"error": f"Feature '{feature}' is not allowed for plan '{plan}'."}
 
+    limit = quotas.get(feature, None)
+    current_usage = sum(
+        u["count"] for u in data["usage"]
+        if u["tenant_id"] == tenant_id and u["feature"] == feature
+    )
+    
+    if limit is not None:
+        projected = current_usage + count
+        if projected > limit:
+            print(f"Tenant {tenant_id} exceeded quota for '{feature}'. Limit={limit}, Used={projected}")
+        elif projected > 0.8 * limit:
+            print(f"Tenant {tenant_id} nearing quota for '{feature}' ({projected}/{limit})")
+       
+                       
     usage_id = len(data["usage"]) + 1
     usage = {
         "id": usage_id,
@@ -81,24 +99,31 @@ def calculate_billing(tenant_id):
     subscription = next((s for s in data["subscriptions"] if s["tenant_id"] == tenant_id), None)
     if not subscription:
          return 0.0
-    
+   
     plan = subscription["plan"]
+    plan_info = data["plans"].get(plan, {})
+    quotas = plan_info.get("quotas", {})
+    pricing = plan_info.get("pricing", {})
+    base_price = plan_info.get("price", 0)
+
+    billing = base_price  
+
     usage_list = [u for u in data["usage"] if u["tenant_id"] == tenant_id]
 
-    billing = 0.0
+    usage_by_feature = {}
     for u in usage_list:
-        if plan == "free":
-            if u["feature"] == "api_calls":
-                billing += max(0, u["count"] - 100) * 0.01
+        usage_by_feature[u["feature"]] = usage_by_feature.get(u["feature"], 0) + u["count"]
 
-        elif plan == "premium":
-            if u["feature"] == "api_calls":
-                billing += u["count"] * 0.01
-            elif u["feature"] == "storage":
-                billing += u["count"] * 0.05
-        elif plan == "enterprise":
-            billing = 100  
-            break
+    for feature, total_count in usage_by_feature.items():
+        quota = quotas.get(feature, None)
+        price_per_unit = pricing.get(feature, 0)
+
+        if quota is None:
+            continue
+
+        if total_count > quota:
+            extra = total_count - quota
+            billing += extra * price_per_unit
 
     return round(billing, 2)
 
