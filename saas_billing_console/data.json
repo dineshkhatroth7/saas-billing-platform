@@ -34,6 +34,11 @@
             "id": 7,
             "name": "Hr department",
             "created_at": "2025-08-20 14:10:36.741403"
+        },
+        {
+            "id": 8,
+            "name": "tech department",
+            "created_at": "2025-08-21 16:37:10.423636"
         }
     ],
     "subscriptions": [
@@ -72,7 +77,7 @@
             "tenant_id": 5,
             "plan": "premium",
             "start_date": "2025-06-19 21:57:59.839361",
-            "billing_cycle_start": "2025-08-20T13:28:04.878387"
+            "billing_cycle_start": "2025-08-21T16:38:47.881209"
         },
         {
             "id": 7,
@@ -86,13 +91,20 @@
             "plan": "premium",
             "start_date": "2025-08-20 14:11:05.277751",
             "billing_cycle_start": "2025-08-20 14:11:05.277767"
+        },
+        {
+            "id": 9,
+            "tenant_id": 8,
+            "plan": "free",
+            "start_date": "2025-08-21 16:37:26.254633",
+            "billing_cycle_start": "2025-08-21 16:37:26.254648"
         }
     ],
     "usage": [
         {
             "id": 1,
             "tenant_id": 1,
-            "feature": "api calls",
+            "feature": "api_calls",
             "count": 50,
             "timestamp": "2025-08-19 15:29:22.117925"
         },
@@ -123,20 +135,96 @@
             "feature": "api_calls",
             "count": 21,
             "timestamp": "2025-08-20 14:13:40.495705"
+        },
+        {
+            "id": 6,
+            "tenant_id": 6,
+            "feature": "api_calls",
+            "count": 39,
+            "timestamp": "2025-08-21 13:08:21.095698"
+        },
+        {
+            "id": 7,
+            "tenant_id": 4,
+            "feature": "api_calls",
+            "count": 49,
+            "timestamp": "2025-08-21 13:08:44.635726"
+        },
+        {
+            "id": 8,
+            "tenant_id": 4,
+            "feature": "api_calls",
+            "count": 10,
+            "timestamp": "2025-08-21 15:50:39.507332"
+        },
+        {
+            "id": 9,
+            "tenant_id": 8,
+            "feature": "api_calls",
+            "count": 30,
+            "timestamp": "2025-08-21 16:37:55.425035"
+        },
+        {
+            "id": 10,
+            "tenant_id": 8,
+            "feature": "api_calls",
+            "count": 106,
+            "timestamp": "2025-08-21 17:05:23.752237"
+        },
+        {
+            "id": 11,
+            "tenant_id": 8,
+            "feature": "api_calls",
+            "count": 39,
+            "timestamp": "2025-08-21 17:36:37.875541"
+        },
+        {
+            "id": 12,
+            "tenant_id": 8,
+            "feature": "api_calls",
+            "count": 20,
+            "timestamp": "2025-08-21 17:37:41.099752"
         }
     ],
     "plans": {
-        "free": [
-            "api_calls"
-        ],
-        "premium": [
-            "api_calls",
-            "storage"
-        ],
-        "enterprise": [
-            "api_calls",
-            "storage",
-            "reports"
-        ]
+        "free": {
+            "price": 0,
+            "features": [
+                "api_calls"
+            ],
+            "quotas": {
+                "api_calls": 100
+            },
+            "pricing": {
+                "api_calls": 0.1
+            }
+        },
+        "premium": {
+            "price": 0,
+            "features": [
+                "api_calls",
+                "storage"
+            ],
+            "quotas": {
+                "api_calls": 1000,
+                "storage": 500
+            },
+            "pricing": {
+                "api_calls": 0.1,
+                "storage": 0.5
+            }
+        },
+        "enterprise": {
+            "price": 100,
+            "features": [
+                "api_calls",
+                "storage"
+            ],
+            "quotas": {
+                "api_calls": null,
+                "storage": null
+            },
+            "pricing": {}
+        }
     }
 }
