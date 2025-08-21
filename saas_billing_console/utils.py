@@ -1,6 +1,7 @@
 
 import json,csv
 from datetime import datetime,timedelta
+from tabulate import tabulate
 
 DATA_FILE = "data.json"
 
@@ -191,3 +192,32 @@ def export_usage_report(tenant_id, format="csv"):
             json.dump(usage_list, f, indent=4)
     
     return {"message": f"Report exported to {filename}"}
+
+def view_all_tenants_analytics():
+    data = load_data()
+    tenants = data.get("tenants", [])
+    subscriptions = {s["tenant_id"]: s for s in data.get("subscriptions", [])}
+    usage = data.get("usage", [])
+
+    table = []
+    headers = ["Tenant ID", "Name", "Plan", "Feature Usage", "Billing ($)"]
+
+    for tenant in tenants:
+        tid = tenant["id"]
+        name = tenant["name"]
+        plan = subscriptions.get(tid, {}).get("plan", "no plan")
+
+        usage_summary = {}
+
+        for u in usage:
+            if u["tenant_id"] == tid:
+                usage_summary[u["feature"]] = usage_summary.get(u["feature"], 0) + u["count"]
+        
+        bill = calculate_billing(tid)
+
+        
+        usage_str = ", ".join([f"{f}: {c}" for f, c in usage_summary.items()]) if usage_summary else "No usage"
+
+        table.append([tid, name, plan, usage_str, bill])
+
+    return tabulate(table, headers=headers, tablefmt="grid")
