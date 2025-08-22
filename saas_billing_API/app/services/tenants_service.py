@@ -1,45 +1,50 @@
-from datetime import datetime,timezone
+from datetime import datetime, timezone
+from fastapi import HTTPException
 from app.db.mongo import tenants_collection
-from app.models.tenants_model import TenantCreate, TenantOut
+from app.models.tenants_model import TenantCreate, TenantOut,UsageRecord
 from app.utils.logger import logger
 from app.utils.plans import plans
 
 
-async def create_tenant(tenant: TenantCreate) -> TenantOut | None:
+async def create_tenant(tenant: TenantCreate) -> TenantOut:
     try:
         existing = await tenants_collection.find_one({"name": tenant.name})
         if existing:
             logger.warning(f"Tenant creation failed: {tenant.name} already exists.")
-            return None
+            raise HTTPException(status_code=400, detail="Tenant already exists")
 
         plan = plans.get(tenant.subscription_plan)
         if not plan:
             logger.warning(f"Invalid plan: {tenant.subscription_plan}")
-            return None
+            raise HTTPException(status_code=400, detail="Invalid subscription plan")
 
-        tenant_count = await tenants_collection.count_documents({})
-        tenant_id = tenant_count + 1
+        counter = await tenants_collection.database.counters.find_one_and_update(
+            {"_id": "tenant_id"},
+            {"$inc": {"seq": 1}},
+            upsert=True,
+            return_document=True
+        )
+        tenant_id = counter["seq"]
 
         now = datetime.now(timezone.utc)
         tenant_doc = tenant.model_dump()
-        tenant_doc["tenant_id"] = tenant_id
-        tenant_doc["active"] = True
-        tenant_doc["features"] = plan["features"]
-        tenant_doc["quotas"] = plan["quotas"]
-        tenant_doc["pricing"] = plan.get("pricing", {})
-        tenant_doc["base_price"] = plan["price"]
-        tenant_doc["usage"] = {feature: 0 for feature in plan["features"]}
-        tenant_doc["created_at"] = now
-        tenant_doc["updated_at"] = now
+        tenant_doc.update({
+            "tenant_id": tenant_id,
+            "active": True,
+            "features": plan["features"],
+            "quotas": plan["quotas"],
+            "pricing": plan.get("pricing", {}),
+            "base_price": plan["price"],
+            "usage": {feature: 0 for feature in plan["features"]},
+            "created_at": now,
+            "updated_at": now
+        })
 
         result = await tenants_collection.insert_one(tenant_doc)
-
-        logger.info(
-            f"Tenant created successfully: {tenant.name} "
-            f"(tenant_id={tenant_id}, mongo_id={result.inserted_id})"
-        )
+        logger.info(f"Tenant created: {tenant.name} (tenant_id={tenant_id}, id={result.inserted_id})")
 
         saved = await tenants_collection.find_one({"_id": result.inserted_id})
+
 
         return TenantOut(
             id=str(saved["_id"]),
@@ -51,10 +56,34 @@ async def create_tenant(tenant: TenantCreate) -> TenantOut | None:
             quotas=saved["quotas"],
             pricing=saved["pricing"],
             base_price=saved["base_price"],
-            created_at=saved["created_at"],
-            updated_at=saved["updated_at"],
+            created_at=saved["created_at"]
         )
 
     except Exception as e:
         logger.error(f"Unexpected error during tenant creation: {e}")
         raise
+
+
+
+async def record_usage(tenant_id: int, usage: UsageRecord):
+    tenant = await tenants_collection.find_one({"tenant_id": tenant_id})
+    if not tenant:
+        raise HTTPException(status_code=404, detail="Tenant not found")
+
+    if usage.feature not in tenant["features"]:
+        raise HTTPException(status_code=400, detail="Feature not in plan")
+
+    new_usage = tenant["usage"].get(usage.feature, 0) + usage.count
+    tenant["usage"][usage.feature] = new_usage
+    tenant["updated_at"] = datetime.now(timezone.utc)
+
+    await tenants_collection.update_one(
+        {"tenant_id": tenant_id},
+        {"$set": {"usage": tenant["usage"], "updated_at": tenant["updated_at"]}}
+    )
+
+    return {
+        "tenant_id": tenant_id,
+        "feature": usage.feature,
+        "usage": new_usage
+    }
