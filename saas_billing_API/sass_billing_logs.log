@@ -50,3 +50,22 @@ updated_at
 2025-08-22 15:25:45,773 - WARNING - Tenant creation failed: smith already exists.
 2025-08-22 15:28:06,280 - WARNING - Tenant creation failed: smith already exists.
 2025-08-22 15:28:30,024 - INFO - Tenant created successfully: smith (tenant_id=8, mongo_id=68a83f458c54f19240f9905d)
+2025-08-22 17:51:45,415 - WARNING - Tenant creation failed: smith already exists.
+2025-08-22 17:52:14,815 - WARNING - Invalid plan: fre
+2025-08-22 17:52:17,855 - WARNING - Invalid plan: fre
+2025-08-22 17:52:40,358 - WARNING - Invalid plan: fre
+2025-08-22 17:53:15,014 - WARNING - Invalid plan: fre
+2025-08-22 17:54:49,835 - WARNING - Invalid plan: fre
+2025-08-22 17:55:22,916 - WARNING - Invalid plan: fre
+2025-08-22 17:55:26,180 - WARNING - Invalid plan: fre
+2025-08-22 18:02:12,912 - WARNING - Invalid plan: fre
+2025-08-22 18:17:34,119 - INFO - Tenant created: Acme Corp (tenant_id=1, id=68a866e6e2000765cb50fa64)
+2025-08-22 18:17:34,627 - INFO - Tenant created: Acme Corp (tenant_id=2, id=68a866e6e2000765cb50fa65)
+2025-08-22 18:19:44,879 - WARNING - Tenant creation failed: Acme Corp already exists.
+2025-08-22 18:19:44,880 - ERROR - Unexpected error during tenant creation: 400: Tenant already exists
+2025-08-22 18:20:00,650 - INFO - Tenant created: smith (tenant_id=3, id=68a867775b391dfc7132791a)
+2025-08-22 18:31:31,891 - WARNING - Tenant creation failed: smith already exists.
+2025-08-22 18:31:31,892 - ERROR - Unexpected error during tenant creation: 400: Tenant already exists
+2025-08-22 20:02:27,419 - INFO - Tenant created: green tech company (tenant_id=4, id=68a87f7b4bf6621ac3019cd4)
+2025-08-22 20:02:36,608 - WARNING - Tenant creation failed: green tech company already exists.
+2025-08-22 20:02:36,609 - ERROR - Unexpected error during tenant creation: 400: Tenant already exists
