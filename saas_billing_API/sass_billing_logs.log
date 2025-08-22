@@ -6,3 +6,47 @@
 2025-08-22 13:11:20,834 - INFO - Tenant created successfully: finacne department (id=3)
 2025-08-22 13:11:33,934 - WARNING - Tenant creation failed: finacne department already exists.
 2025-08-22 13:12:01,147 - INFO - Tenant created successfully: IT department (id=4)
+2025-08-22 13:33:52,253 - WARNING - Tenant creation failed: IT department already exists.
+2025-08-22 13:34:22,770 - INFO - Tenant created successfully: sara (id=68a82486e7ee8648dd92c810)
+2025-08-22 13:34:22,771 - ERROR - Unexpected error during tenant creation: 1 validation error for TenantOut
+features
+  Input should be a valid dictionary [type=dict_type, input_value=['api_calls'], input_type=list]
+    For further information visit https://errors.pydantic.dev/2.11/v/dict_type
+2025-08-22 13:34:34,688 - WARNING - Tenant creation failed: sara already exists.
+2025-08-22 13:34:46,737 - INFO - Tenant created successfully: jhon (id=68a8249ee7ee8648dd92c811)
+2025-08-22 13:34:46,737 - ERROR - Unexpected error during tenant creation: 1 validation error for TenantOut
+features
+  Input should be a valid dictionary [type=dict_type, input_value=['api_calls'], input_type=list]
+    For further information visit https://errors.pydantic.dev/2.11/v/dict_type
+2025-08-22 13:37:14,303 - WARNING - Tenant creation failed: jhon already exists.
+2025-08-22 13:48:14,479 - WARNING - Tenant creation failed: jhon already exists.
+2025-08-22 13:48:14,483 - WARNING - Tenant creation failed: jhon already exists.
+2025-08-22 13:48:15,057 - INFO - Tenant created successfully: sam (id=68a827c67c7ae013211ae94c)
+2025-08-22 13:48:50,778 - WARNING - Tenant creation failed: sam already exists.
+2025-08-22 13:49:07,079 - INFO - Tenant created successfully: smith (id=68a827fa07e05eda64a62475)
+2025-08-22 13:49:37,418 - WARNING - Tenant creation failed: smith already exists.
+2025-08-22 13:50:03,742 - INFO - Tenant created successfully: smith (id=68a8283392769df747234153)
+2025-08-22 13:50:03,743 - ERROR - Unexpected error during tenant creation: 1 validation error for TenantOut
+id
+  Input should be a valid integer, unable to parse string as an integer [type=int_parsing, input_value='68a8283392769df747234153', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.11/v/int_parsing
+2025-08-22 13:50:06,967 - WARNING - Tenant creation failed: smith already exists.
+2025-08-22 13:53:57,516 - INFO - Tenant created successfully: smith (tenant_id=8, mongo_id=68a8291d55c62f7cb9cf16c1)
+2025-08-22 13:53:57,517 - ERROR - Unexpected error during tenant creation: 1 validation error for TenantOut
+id
+  Input should be a valid integer, unable to parse string as an integer [type=int_parsing, input_value='68a8291d55c62f7cb9cf16c1', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.11/v/int_parsing
+2025-08-22 13:55:41,646 - WARNING - Tenant creation failed: smith already exists.
+2025-08-22 13:56:07,146 - INFO - Tenant created successfully: smith (tenant_id=8, mongo_id=68a8299f16a6339adcf9d643)
+2025-08-22 13:56:36,715 - WARNING - Tenant creation failed: smith already exists.
+2025-08-22 15:25:42,103 - INFO - Tenant created successfully: smith (tenant_id=8, mongo_id=68a83e9e41c8ab2d6f0a05d2)
+2025-08-22 15:25:42,178 - ERROR - Unexpected error during tenant creation: 2 validation errors for TenantOut
+created_at
+  Field required [type=missing, input_value={'id': '68a83e9e41c8ab2d6...: 0.1}, 'base_price': 0}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.11/v/missing
+updated_at
+  Field required [type=missing, input_value={'id': '68a83e9e41c8ab2d6...: 0.1}, 'base_price': 0}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.11/v/missing
+2025-08-22 15:25:45,773 - WARNING - Tenant creation failed: smith already exists.
+2025-08-22 15:28:06,280 - WARNING - Tenant creation failed: smith already exists.
+2025-08-22 15:28:30,024 - INFO - Tenant created successfully: smith (tenant_id=8, mongo_id=68a83f458c54f19240f9905d)
