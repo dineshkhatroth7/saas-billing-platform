@@ -1,0 +1,8 @@
+2025-08-22 13:01:14,147 - INFO - Tenant created successfully: tech department (id=68a81cc25944683b7205e27e)
+2025-08-22 13:03:44,931 - WARNING - Tenant creation failed: tech department already exists.
+2025-08-22 13:05:10,233 - WARNING - Tenant creation failed: tech department already exists.
+2025-08-22 13:07:48,813 - INFO - Tenant created successfully: hr department (id=68a81e4c28303099183dc317)
+2025-08-22 13:11:08,010 - WARNING - Tenant creation failed: hr department already exists.
+2025-08-22 13:11:20,834 - INFO - Tenant created successfully: finacne department (id=3)
+2025-08-22 13:11:33,934 - WARNING - Tenant creation failed: finacne department already exists.
+2025-08-22 13:12:01,147 - INFO - Tenant created successfully: IT department (id=4)
