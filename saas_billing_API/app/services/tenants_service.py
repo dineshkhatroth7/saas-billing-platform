@@ -1,10 +1,10 @@
 from datetime import datetime, timezone
 from fastapi import HTTPException
-from app.db.mongo import tenants_collection
+from app.db.mongo import tenants_collection,invoices_collection
 from app.models.tenants_model import TenantCreate, TenantOut,UsageRecord
 from app.utils.logger import logger
 from app.utils.plans import plans
-
+from bson import objectid
 
 async def create_tenant(tenant: TenantCreate) -> TenantOut:
     try:
@@ -87,3 +87,51 @@ async def record_usage(tenant_id: int, usage: UsageRecord):
         "feature": usage.feature,
         "usage": new_usage
     }
+
+
+
+async def generate_invoice(tenant_id: int) -> dict:
+    tenant = await tenants_collection.find_one({"tenant_id": tenant_id})
+    if not tenant:
+        raise HTTPException(status_code=404, detail="Tenant not found")
+    
+    base_price = tenant.get("base_price", 0)
+    usage = tenant.get("usage", {})
+    quotas = tenant.get("quotas", {})
+    pricing = tenant.get("pricing", {})
+
+    usage_charges = 0.0
+    usage_details = {}
+
+    for feature, used in usage.items():
+        limit = quotas.get(feature)
+        feature_price = pricing.get(feature, 0)
+        if limit is not None and used > limit:
+            overage = (used - limit) * feature_price
+            usage_charges += overage
+            usage_details[feature] = {
+                "used": used,
+                "quota": limit,
+                "unit_price": feature_price,
+                "overage": overage
+            }
+
+    total_due = base_price + usage_charges
+
+    invoice = {
+        "tenant_id": tenant_id,
+        "tenant_name": tenant["name"],
+        "billing_date": datetime.now(timezone.utc).isoformat(), 
+        "plan": tenant["subscription_plan"],
+        "base_price": base_price,
+        "usage_charges": usage_charges,
+        "usage_details": usage_details,
+        "total_due": total_due,
+        "usage_snapshot": usage
+    }
+
+    result = await invoices_collection.insert_one(invoice)
+    invoice["_id"] = str(result.inserted_id)  
+
+    logger.info(f"Invoice stored with id {result.inserted_id} for tenant {tenant_id}")
+    return invoice

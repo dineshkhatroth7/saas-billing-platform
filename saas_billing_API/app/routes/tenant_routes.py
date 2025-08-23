@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException
 from app.models.tenants_model import TenantCreate,TenantOut,UsageRecord
-from app.services.tenants_service import create_tenant,record_usage
+from app.services.tenants_service import create_tenant,record_usage,generate_invoice
 
 
 
@@ -18,3 +18,8 @@ async def add_tenant(tenant: TenantCreate):
 async def add_usage(tenant_id: int, usage: UsageRecord):
     usage_record = await record_usage(tenant_id, usage)
     return usage_record
+
+@router.get("/{tenant_id}/billing")
+async def get_billing(tenant_id: int):
+    invoice = await generate_invoice(tenant_id)
+    return invoice

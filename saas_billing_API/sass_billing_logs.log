@@ -69,3 +69,7 @@ updated_at
 2025-08-22 20:02:27,419 - INFO - Tenant created: green tech company (tenant_id=4, id=68a87f7b4bf6621ac3019cd4)
 2025-08-22 20:02:36,608 - WARNING - Tenant creation failed: green tech company already exists.
 2025-08-22 20:02:36,609 - ERROR - Unexpected error during tenant creation: 400: Tenant already exists
+2025-08-22 20:39:17,169 - INFO - Invoice stored with id 68a8881c363438ec5b1dd986 for tenant 4
+2025-08-22 20:41:16,018 - INFO - Invoice stored with id 68a88893363438ec5b1dd987 for tenant 4
+2025-08-22 20:45:24,857 - INFO - Invoice stored with id 68a8898cf03570e6332cb5f2 for tenant 4
+2025-08-22 20:47:02,321 - INFO - Invoice stored with id 68a889eeeb40a2eb5fdae6df for tenant 4
