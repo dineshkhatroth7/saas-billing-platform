@@ -1,6 +1,6 @@
-from fastapi import APIRouter,Body
-from app.models.tenants_model import TenantCreate,TenantOut,UsageRecord,PlanUpdate,TenantDeleteResponse
-from app.services.tenants_service import create_tenant,record_usage,generate_invoice,downgrade_expired_plans,get_tenant,update_tenant_plan,deactivate_tenant
+from fastapi import APIRouter
+from app.models.tenants_model import TenantCreate,TenantOut,UsageRecord,PlanUpdate,TenantDeleteResponse,UsageSummary
+from app.services.tenants_service import create_tenant,record_usage,generate_invoice,downgrade_expired_plans,get_tenant,update_tenant_plan,deactivate_tenant,get_tenant_usage
 
 
 
@@ -40,3 +40,8 @@ async def change_plan(tenant_id: int, new_plan:PlanUpdate ):
 @router.delete("/{tenant_id}", response_model=TenantDeleteResponse)
 async def delete_tenant(tenant_id: int):
     return await deactivate_tenant(tenant_id)
+
+
+@router.get("/{tenant_id}/usage", response_model=UsageSummary)
+async def fetch_tenant_usage(tenant_id: int):
+    return await get_tenant_usage(tenant_id)

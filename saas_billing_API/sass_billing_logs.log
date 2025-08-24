@@ -86,3 +86,9 @@ updated_at
 2025-08-24 17:14:45,562 - INFO - Fetched tenant 3 successfully.
 2025-08-24 17:15:02,288 - INFO - Tenant 3 updated to plan 'premium'.
 2025-08-24 17:15:12,358 - INFO - Tenant 3 deactivated successfully.
+2025-08-24 18:07:56,984 - INFO - Tenant created: growth company (tenant_id=6, id=68ab07a4b69852e685d2e7f9)
+2025-08-24 18:09:18,542 - INFO - Invoice stored with id 68ab07f6b69852e685d2e7fa for tenant 6
+2025-08-24 18:10:18,095 - INFO - Fetching usage for tenant_id=6
+2025-08-24 18:19:29,124 - INFO - Fetching usage for tenant_id=6
+2025-08-24 18:20:02,805 - INFO - Fetching usage for tenant_id=6
+2025-08-24 18:21:29,101 - INFO - Fetching usage for tenant_id=6

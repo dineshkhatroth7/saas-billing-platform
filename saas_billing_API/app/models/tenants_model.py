@@ -33,3 +33,7 @@ class TenantDeleteResponse(BaseModel):
     active: bool
     deleted_at: datetime
     message: str
+
+class UsageSummary(BaseModel):
+    tenant_id: int
+    usage: List[UsageRecord]
