@@ -1,7 +1,7 @@
 from datetime import datetime, timezone,timedelta
 from fastapi import HTTPException
 from app.db.mongo import tenants_collection,invoices_collection
-from app.models.tenants_model import TenantCreate, TenantOut,UsageRecord
+from app.models.tenants_model import TenantCreate, TenantOut,UsageRecord,UsageSummary
 from app.utils.logger import logger
 from app.utils.plans import plans
 
@@ -43,7 +43,7 @@ async def create_tenant(tenant: TenantCreate) -> TenantOut:
             "quotas": plan["quotas"],
             "pricing": plan.get("pricing", {}),
             "base_price": plan["price"],
-            "usage": {feature: 0 for feature in plan["features"]},
+            "usage": [{"feature": feature, "count": 0} for feature in plan["features"]],
             "created_at": now,
             "updated_at": now,
             "subscription_start": subscription_start,
@@ -78,9 +78,13 @@ async def create_tenant(tenant: TenantCreate) -> TenantOut:
 async def record_usage(tenant_id: int, usage: UsageRecord):
     tenant = await tenants_collection.find_one({"tenant_id": tenant_id})
     if not tenant:
+        logger.warning(f"Tenant {tenant_id} not found.")
         raise HTTPException(status_code=404, detail="Tenant not found")
 
     if usage.feature not in tenant["features"]:
+        logger.error(
+        f"Tenant {tenant['tenant_id']} attempted to use feature '{usage.feature}' "
+        f"which is not included in plan '{tenant['subscription_plan']}'.")
         raise HTTPException(status_code=400, detail="Feature not in plan")
 
     new_usage = tenant["usage"].get(usage.feature, 0) + usage.count
@@ -103,6 +107,7 @@ async def record_usage(tenant_id: int, usage: UsageRecord):
 async def generate_invoice(tenant_id: int) -> dict:
     tenant = await tenants_collection.find_one({"tenant_id": tenant_id})
     if not tenant:
+        logger.warning(f"Tenant {tenant_id} not found.")
         raise HTTPException(status_code=404, detail="Tenant not found")
     
     base_price = tenant.get("base_price", 0)
@@ -274,3 +279,19 @@ async def deactivate_tenant(tenant_id: int):
         "message": f"Tenant {tenant['tenant_id']} deactivated successfully"
     }
 
+
+async def get_tenant_usage(tenant_id: int) -> UsageSummary:
+    logger.info(f"Fetching usage for tenant_id={tenant_id}") 
+    tenant = await tenants_collection.find_one({"tenant_id": tenant_id})
+    if not tenant:
+        logger.warning(f"Tenant {tenant_id} not found while fetching usage")
+        raise HTTPException(status_code=404, detail="Tenant not found")
+    
+    usage_data = tenant.get("usage", [])
+    usage_records = [
+        UsageRecord(feature=feature, count=count)
+        for feature, count in usage_data.items()
+    ]
+
+    logger.debug(f"Tenant {tenant_id} usage data: {usage_records}") 
+    return UsageSummary(tenant_id=tenant_id, usage=usage_records)
