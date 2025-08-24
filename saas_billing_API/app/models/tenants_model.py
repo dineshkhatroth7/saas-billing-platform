@@ -22,3 +22,14 @@ class TenantOut(BaseModel):
 class UsageRecord(BaseModel):
     feature: str
     count: int
+
+class PlanUpdate(BaseModel):
+    new_plan: Literal["free", "premium", "enterprise"]
+
+
+class TenantDeleteResponse(BaseModel):
+    tenant_id: int
+    name: str
+    active: bool
+    deleted_at: datetime
+    message: str

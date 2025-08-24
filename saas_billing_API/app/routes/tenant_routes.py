@@ -1,6 +1,6 @@
-from fastapi import APIRouter
-from app.models.tenants_model import TenantCreate,TenantOut,UsageRecord
-from app.services.tenants_service import create_tenant,record_usage,generate_invoice,downgrade_expired_plans
+from fastapi import APIRouter,Body
+from app.models.tenants_model import TenantCreate,TenantOut,UsageRecord,PlanUpdate,TenantDeleteResponse
+from app.services.tenants_service import create_tenant,record_usage,generate_invoice,downgrade_expired_plans,get_tenant,update_tenant_plan,deactivate_tenant
 
 
 
@@ -26,3 +26,17 @@ async def get_billing(tenant_id: int):
 @router.post("/downgrade-expired")
 async def downgrade_expired():
     return await downgrade_expired_plans()
+
+@router.get("/{tenant_id}", response_model=TenantOut)
+async def fetch_tenant(tenant_id: int):
+    return await get_tenant(tenant_id)
+
+
+@router.put("/{tenant_id}/plan", response_model=TenantOut)
+async def change_plan(tenant_id: int, new_plan:PlanUpdate ):
+    return await update_tenant_plan(tenant_id, new_plan.new_plan)
+
+
+@router.delete("/{tenant_id}", response_model=TenantDeleteResponse)
+async def delete_tenant(tenant_id: int):
+    return await deactivate_tenant(tenant_id)
