@@ -73,3 +73,10 @@ updated_at
 2025-08-22 20:41:16,018 - INFO - Invoice stored with id 68a88893363438ec5b1dd987 for tenant 4
 2025-08-22 20:45:24,857 - INFO - Invoice stored with id 68a8898cf03570e6332cb5f2 for tenant 4
 2025-08-22 20:47:02,321 - INFO - Invoice stored with id 68a889eeeb40a2eb5fdae6df for tenant 4
+2025-08-24 11:40:28,988 - INFO - Tenant created: tech company (tenant_id=5, id=68aaacd4ba2b40e4dcea193e)
+2025-08-24 11:44:40,132 - INFO - Invoice stored with id 68aaadd0ba2b40e4dcea193f for tenant 5
+2025-08-24 11:46:51,979 - INFO - Downgrade job completed: 0 tenants downgraded to Free.
+2025-08-24 11:47:33,671 - INFO - Tenant tech company (tenant_id=5) downgraded to Free plan.
+2025-08-24 11:47:33,671 - INFO - Downgrade job completed: 1 tenants downgraded to Free.
+2025-08-24 11:49:38,336 - INFO - Downgrade job completed: 0 tenants downgraded to Free.
+2025-08-24 11:50:15,976 - INFO - Downgrade job completed: 0 tenants downgraded to Free.

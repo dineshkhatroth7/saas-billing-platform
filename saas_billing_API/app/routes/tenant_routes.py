@@ -1,6 +1,6 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter
 from app.models.tenants_model import TenantCreate,TenantOut,UsageRecord
-from app.services.tenants_service import create_tenant,record_usage,generate_invoice
+from app.services.tenants_service import create_tenant,record_usage,generate_invoice,downgrade_expired_plans
 
 
 
@@ -9,8 +9,6 @@ router = APIRouter()
 @router.post("/", response_model=TenantOut)
 async def add_tenant(tenant: TenantCreate):
     created_tenant = await create_tenant(tenant)
-    if not created_tenant:
-        raise HTTPException(status_code=400, detail="Tenant already exists")
     return created_tenant
 
 
@@ -23,3 +21,8 @@ async def add_usage(tenant_id: int, usage: UsageRecord):
 async def get_billing(tenant_id: int):
     invoice = await generate_invoice(tenant_id)
     return invoice
+
+
+@router.post("/downgrade-expired")
+async def downgrade_expired():
+    return await downgrade_expired_plans()

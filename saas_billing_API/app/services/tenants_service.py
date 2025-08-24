@@ -1,10 +1,10 @@
-from datetime import datetime, timezone
+from datetime import datetime, timezone,timedelta
 from fastapi import HTTPException
 from app.db.mongo import tenants_collection,invoices_collection
 from app.models.tenants_model import TenantCreate, TenantOut,UsageRecord
 from app.utils.logger import logger
 from app.utils.plans import plans
-from bson import objectid
+
 
 async def create_tenant(tenant: TenantCreate) -> TenantOut:
     try:
@@ -27,6 +27,14 @@ async def create_tenant(tenant: TenantCreate) -> TenantOut:
         tenant_id = counter["seq"]
 
         now = datetime.now(timezone.utc)
+        
+        if tenant.subscription_plan in ["premium", "enterprise"]:
+            subscription_start = now
+            subscription_end = now + timedelta(days=30)
+        else:
+            subscription_start = None
+            subscription_end = None
+        
         tenant_doc = tenant.model_dump()
         tenant_doc.update({
             "tenant_id": tenant_id,
@@ -37,7 +45,9 @@ async def create_tenant(tenant: TenantCreate) -> TenantOut:
             "base_price": plan["price"],
             "usage": {feature: 0 for feature in plan["features"]},
             "created_at": now,
-            "updated_at": now
+            "updated_at": now,
+            "subscription_start": subscription_start,
+            "subscription_end": subscription_end
         })
 
         result = await tenants_collection.insert_one(tenant_doc)
@@ -135,3 +145,53 @@ async def generate_invoice(tenant_id: int) -> dict:
 
     logger.info(f"Invoice stored with id {result.inserted_id} for tenant {tenant_id}")
     return invoice
+
+async def downgrade_expired_plans():
+
+    now = datetime.now(timezone.utc)
+
+    query = {
+        "subscription_end": {"$lte": now},
+        "subscription_plan": {"$in": ["premium", "enterprise"]}
+    }
+
+    updated = 0
+    downgraded_tenants = []
+
+    async for tenant in tenants_collection.find(query):
+        tenant_id = tenant["tenant_id"]
+        tenant_name = tenant.get("name") 
+
+        downgrade_fields = {
+            "subscription_plan": "free",
+            "features": plans["free"]["features"],
+            "quotas": plans["free"]["quotas"],
+            "pricing": plans["free"]["pricing"],
+            "base_price": plans["free"]["price"],
+            "subscription_start": None,
+            "subscription_end": None,
+            "updated_at": now,
+        }
+
+        await tenants_collection.update_one(
+            {"tenant_id": tenant_id},
+            {"$set": downgrade_fields}
+        )
+        updated += 1
+        downgraded_tenants.append({
+            "tenant_id": tenant_id,
+            "tenant_name": tenant_name
+        })
+
+        logger.info(f"Tenant {tenant['name']} (tenant_id={tenant_id}) downgraded to Free plan.")
+    
+    return {
+        "message": f"{updated} tenants downgraded to free plan.",
+        "downgraded_tenants": downgraded_tenants
+    }
+
+
+
+
+
+
