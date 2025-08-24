@@ -191,7 +191,86 @@ async def downgrade_expired_plans():
     }
 
 
+async def get_tenant(tenant_id: int) -> TenantOut:
+    tenant = await tenants_collection.find_one({"tenant_id": tenant_id})
+    if not tenant:
+        logger.warning(f"Tenant {tenant_id} not found.")
+        raise HTTPException(status_code=404, detail="Tenant not found")
+    
+    tenant["id"] = str(tenant["_id"])
+    logger.info(f"Fetched tenant {tenant_id} successfully.")
+
+    return TenantOut(**tenant)
 
 
 
+async def update_tenant_plan(tenant_id: int, new_plan: str):
+
+    now = datetime.now(timezone.utc)
+
+    if new_plan not in plans:
+        logger.error(f"Invalid plan '{new_plan}' for tenant {tenant_id}.")
+        raise HTTPException(status_code=400, detail="Invalid plan")
+
+    tenant = await tenants_collection.find_one({"tenant_id": tenant_id})
+    if not tenant:
+        logger.warning(f"Tenant {tenant_id} not found for plan update.")
+        raise HTTPException(status_code=404, detail="Tenant not found")
+
+    if new_plan in ["premium", "enterprise"]:
+        subscription_start = now
+        subscription_end = now + timedelta(days=30)
+    else:
+        subscription_start = None
+        subscription_end = None
+
+    update_data = {
+        "subscription_plan": new_plan,
+        "features": plans[new_plan]["features"],
+        "quotas": plans[new_plan]["quotas"],
+        "pricing": plans[new_plan]["pricing"],
+        "base_price": plans[new_plan]["price"],
+        "subscription_start": subscription_start,
+        "subscription_end": subscription_end,
+        "updated_at": now
+    }
+
+    await tenants_collection.update_one(
+        {"tenant_id": tenant_id},
+        {"$set": update_data}
+    )
+
+    tenant.update(update_data)
+    tenant["id"] = str(tenant["_id"])
+    logger.info(f"Tenant {tenant_id} updated to plan '{new_plan}'.")
+    return TenantOut(**tenant)
+
+async def deactivate_tenant(tenant_id: int):
+    tenant = await tenants_collection.find_one({"tenant_id": tenant_id})
+    if not tenant:
+        logger.warning(f"Tried to deactivate non-existent tenant {tenant_id}.")
+        raise HTTPException(status_code=404, detail="Tenant not found")
+
+    now = datetime.now(timezone.utc)
+
+    update_data = {
+        "active": False,
+        "deleted_at": now,
+        "updated_at": now
+    }
+
+    await tenants_collection.update_one(
+        {"tenant_id": tenant_id},
+        {"$set": update_data}
+    )
+
+    tenant.update(update_data)
+    logger.info(f"Tenant {tenant_id} deactivated successfully.")
+    return {
+        "tenant_id": tenant["tenant_id"],
+        "name": tenant["name"],
+        "active": tenant["active"],
+        "deleted_at": tenant["deleted_at"],
+        "message": f"Tenant {tenant['tenant_id']} deactivated successfully"
+    }
 

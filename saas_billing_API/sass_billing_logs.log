@@ -80,3 +80,9 @@ updated_at
 2025-08-24 11:47:33,671 - INFO - Downgrade job completed: 1 tenants downgraded to Free.
 2025-08-24 11:49:38,336 - INFO - Downgrade job completed: 0 tenants downgraded to Free.
 2025-08-24 11:50:15,976 - INFO - Downgrade job completed: 0 tenants downgraded to Free.
+2025-08-24 17:05:04,152 - INFO - Fetched tenant 4 successfully.
+2025-08-24 17:05:35,835 - INFO - Tenant 4 updated to plan 'premium'.
+2025-08-24 17:05:57,912 - INFO - Tenant 4 deactivated successfully.
+2025-08-24 17:14:45,562 - INFO - Fetched tenant 3 successfully.
+2025-08-24 17:15:02,288 - INFO - Tenant 3 updated to plan 'premium'.
+2025-08-24 17:15:12,358 - INFO - Tenant 3 deactivated successfully.
