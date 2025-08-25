@@ -378,3 +378,24 @@ async def get_analytics():
 
     logger.info(f"Analytics generated successfully: {analytics_data}")
     return analytics_data
+
+async def reactivate_tenant(tenant_id: int) -> TenantOut:
+    tenant = await tenants_collection.find_one({"tenant_id": tenant_id})
+    if not tenant:
+        logger.error(f"Tenant {tenant_id} not found for reactivation")
+        raise HTTPException(status_code=404, detail="Tenant not found")
+    
+    if tenant.get("active", True):
+        logger.info(f"Tenant {tenant_id} is already active")
+        tenant["id"] = str(tenant["_id"])
+        return TenantOut(**tenant)
+    
+    await tenants_collection.update_one(
+        {"tenant_id": tenant_id},
+        {"$set": {"active": True}}
+    )
+
+    updated = await tenants_collection.find_one({"tenant_id": tenant_id})
+    updated["id"] = str(updated["_id"])
+    logger.info(f"Tenant {tenant_id} reactivated successfully")
+    return TenantOut(**updated)
