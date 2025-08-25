@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel,Field
 from typing import Dict, Any, List,Literal
 from datetime import datetime
 
@@ -37,3 +37,15 @@ class TenantDeleteResponse(BaseModel):
 class UsageSummary(BaseModel):
     tenant_id: int
     usage: List[UsageRecord]
+
+class Invoice(BaseModel):
+    tenant_id: int
+    tenant_name: str
+    billing_date: datetime
+    plan: str
+    base_price: float
+    usage_charges: float
+    usage_details: Dict[str, Any]  
+    total_due: float
+    usage_snapshot: Dict[str, int] 
+    id: str = Field(default=None, alias="_id")  

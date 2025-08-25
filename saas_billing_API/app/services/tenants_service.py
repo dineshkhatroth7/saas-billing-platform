@@ -1,9 +1,10 @@
 from datetime import datetime, timezone,timedelta
 from fastapi import HTTPException
 from app.db.mongo import tenants_collection,invoices_collection
-from app.models.tenants_model import TenantCreate, TenantOut,UsageRecord,UsageSummary
+from app.models.tenants_model import TenantCreate, TenantOut,UsageRecord,UsageSummary,Invoice
 from app.utils.logger import logger
 from app.utils.plans import plans
+from bson import ObjectId
 
 
 async def create_tenant(tenant: TenantCreate) -> TenantOut:
@@ -295,3 +296,19 @@ async def get_tenant_usage(tenant_id: int) -> UsageSummary:
 
     logger.debug(f"Tenant {tenant_id} usage data: {usage_records}") 
     return UsageSummary(tenant_id=tenant_id, usage=usage_records)
+
+
+async def get_invoice_by_tenant(tenant_id: int) -> Invoice:
+    invoice_doc = await invoices_collection.find_one(
+        {"tenant_id": tenant_id}, sort=[("billing_date", -1)]
+    )
+    
+    if not invoice_doc:
+        logger.warning(f"No invoice found for tenant {tenant_id}")
+        raise HTTPException(status_code=404, detail="Invoice not found")
+
+    invoice_doc["id"] = str(invoice_doc["_id"])
+    del invoice_doc["_id"]  
+
+    logger.info(f"Fetched latest invoice for tenant {tenant_id}")
+    return Invoice(**invoice_doc)
