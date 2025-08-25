@@ -5,6 +5,7 @@ from app.models.tenants_model import TenantCreate, TenantOut,UsageRecord,UsageSu
 from app.utils.logger import logger
 from app.utils.plans import plans
 from bson import ObjectId
+from typing import List
 
 
 async def create_tenant(tenant: TenantCreate) -> TenantOut:
@@ -312,3 +313,36 @@ async def get_invoice_by_tenant(tenant_id: int) -> Invoice:
 
     logger.info(f"Fetched latest invoice for tenant {tenant_id}")
     return Invoice(**invoice_doc)
+
+
+async def get_all_tenants() -> List[TenantOut]:
+    try:
+        tenants_cursor = tenants_collection.find()
+        tenants = await tenants_cursor.to_list(length=None)
+
+        if not tenants:
+            logger.info("No tenants found in database.")
+            return []
+
+        result = [
+            TenantOut(
+                id=str(t["_id"]),
+                tenant_id=t["tenant_id"],
+                name=t["name"],
+                subscription_plan=t["subscription_plan"],
+                active=t["active"],
+                features=t["features"],
+                quotas=t["quotas"],
+                pricing=t["pricing"],
+                base_price=t["base_price"],
+                created_at=t["created_at"],
+            )
+            for t in tenants
+        ]
+
+        logger.info(f"Fetched {len(result)} tenants from database.")
+        return result
+
+    except Exception as e:
+        logger.error(f"Error fetching tenants: {e}")
+        raise
