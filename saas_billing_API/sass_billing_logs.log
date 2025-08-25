@@ -99,3 +99,15 @@ updated_at
 2025-08-24 22:15:34,153 - INFO - Fetched latest invoice for tenant 6
 2025-08-24 22:15:38,136 - INFO - Fetched latest invoice for tenant 6
 2025-08-24 22:16:13,713 - INFO - Fetched latest invoice for tenant 6
+2025-08-25 10:28:53,736 - INFO - Fetching all tenants from database...
+2025-08-25 10:28:58,272 - INFO - Fetched 13 tenants successfully.
+2025-08-25 10:29:11,845 - INFO - Fetching all tenants from database...
+2025-08-25 10:29:11,945 - INFO - Fetched 13 tenants successfully.
+2025-08-25 10:35:35,595 - INFO - Fetching all tenants from database...
+2025-08-25 10:35:38,402 - INFO - Fetched 13 tenants successfully.
+2025-08-25 10:38:49,784 - INFO - Fetching all tenants from database...
+2025-08-25 12:45:32,008 - ERROR - Error fetching tenants: 'tenant_id'
+2025-08-25 12:48:31,152 - INFO - Fetched 6 tenants from database.
+2025-08-25 12:48:51,457 - INFO - Fetched 6 tenants from database.
+2025-08-25 12:48:54,096 - INFO - Fetched 6 tenants from database.
+2025-08-25 12:48:56,711 - INFO - Fetched 6 tenants from database.
