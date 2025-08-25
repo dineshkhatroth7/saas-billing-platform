@@ -346,3 +346,35 @@ async def get_all_tenants() -> List[TenantOut]:
     except Exception as e:
         logger.error(f"Error fetching tenants: {e}")
         raise
+
+async def get_analytics():
+    logger.info("Fetching analytics data...")
+
+    total_tenants = await tenants_collection.count_documents({})
+    active_tenants = await tenants_collection.count_documents({"active": True})
+    inactive_tenants = await tenants_collection.count_documents({"active": False})
+
+
+    plan_counts = {
+        "free": await tenants_collection.count_documents({"subscription_plan": "free"}),
+        "premium": await tenants_collection.count_documents({"subscription_plan": "premium"}),
+        "enterprise": await tenants_collection.count_documents({"subscription_plan": "enterprise"}),
+    }
+
+    total_invoices = await invoices_collection.count_documents({})
+  
+  
+    analytics_data = {
+        "tenants": {
+            "total": total_tenants,
+            "active": active_tenants,
+            "inactive": inactive_tenants,
+            "by_plan": plan_counts
+        },
+        "billing": {
+            "total_invoices": total_invoices,
+        }
+    }
+
+    logger.info(f"Analytics generated successfully: {analytics_data}")
+    return analytics_data

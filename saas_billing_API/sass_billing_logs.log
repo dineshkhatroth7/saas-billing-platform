@@ -111,3 +111,7 @@ updated_at
 2025-08-25 12:48:51,457 - INFO - Fetched 6 tenants from database.
 2025-08-25 12:48:54,096 - INFO - Fetched 6 tenants from database.
 2025-08-25 12:48:56,711 - INFO - Fetched 6 tenants from database.
+2025-08-25 13:40:57,145 - INFO - Fetching analytics data...
+2025-08-25 13:41:03,797 - INFO - Analytics generated successfully: {'tenants': {'total': 6, 'active': 3, 'inactive': 3, 'by_plan': {'free': 2, 'premium': 4, 'enterprise': 0}}, 'billing': {'total_invoices': 8}}
+2025-08-25 17:02:34,022 - INFO - Fetching analytics data...
+2025-08-25 17:02:37,899 - INFO - Analytics generated successfully: {'tenants': {'total': 6, 'active': 3, 'inactive': 3, 'by_plan': {'free': 2, 'premium': 4, 'enterprise': 0}}, 'billing': {'total_invoices': 8}}
