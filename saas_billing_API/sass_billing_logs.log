@@ -125,3 +125,17 @@ updated_at
 2025-08-25 17:46:07,484 - INFO - Fetched 6 tenants from database.
 2025-08-25 17:50:49,502 - INFO - Fetched 6 tenants from database.
 2025-08-25 19:38:07,401 - INFO - Tenant 3 reactivated successfully
+2025-08-25 21:52:01,752 - INFO - Searching tenants with query: 4, filters: [{'name': {'$regex': '4', '$options': 'i'}}, {'tenant_id': 4}]
+2025-08-25 21:52:04,218 - INFO - Found 1 tenants for query '4'
+2025-08-25 21:53:40,264 - INFO - Searching tenants with query: smith, filters: [{'name': {'$regex': 'smith', '$options': 'i'}}]
+2025-08-25 21:53:40,396 - INFO - Found 1 tenants for query 'smith'
+2025-08-25 21:54:36,216 - INFO - Searching tenants with query: 2, filters: [{'name': {'$regex': '2', '$options': 'i'}}, {'tenant_id': 2}]
+2025-08-25 21:54:36,302 - INFO - Found 1 tenants for query '2'
+2025-08-25 21:54:46,402 - INFO - Searching tenants with query: smith, filters: [{'name': {'$regex': 'smith', '$options': 'i'}}]
+2025-08-25 21:54:46,487 - INFO - Found 1 tenants for query 'smith'
+2025-08-25 21:55:34,880 - INFO - Searching tenants with query: smith, filters: [{'name': {'$regex': 'smith', '$options': 'i'}}]
+2025-08-25 21:55:34,977 - INFO - Found 1 tenants for query 'smith'
+2025-08-25 22:06:58,909 - INFO - Searching tenants with query: smith, filters: [{'name': {'$regex': 'smith', '$options': 'i'}}]
+2025-08-25 22:07:05,944 - INFO - Found 1 tenants for query 'smith'
+2025-08-25 22:07:24,086 - INFO - Searching tenants with query: smith, filters: [{'name': {'$regex': 'smith', '$options': 'i'}}]
+2025-08-25 22:07:26,035 - INFO - Found 1 tenants for query 'smith'
