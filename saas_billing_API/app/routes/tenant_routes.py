@@ -1,6 +1,6 @@
 from fastapi import APIRouter,Query
 from app.models.tenants_model import TenantCreate,TenantOut,UsageRecord,PlanUpdate,TenantDeleteResponse,UsageSummary,Invoice
-from app.services.tenants_service import create_tenant,record_usage,generate_invoice,downgrade_expired_plans,get_tenant,update_tenant_plan,deactivate_tenant,get_tenant_usage,get_invoice_by_tenant,get_all_tenants,get_analytics,reactivate_tenant,search_tenant_by_name_or_id
+from app.services.tenants_service import create_tenant,record_usage,generate_invoice,get_tenant,update_tenant_plan,deactivate_tenant,get_tenant_usage,get_invoice_by_tenant,get_all_tenants,reactivate_tenant,search_tenant_by_name_or_id
 from typing import List
 
 
@@ -16,17 +16,6 @@ async def add_tenant(tenant: TenantCreate):
 async def list_tenants():
     tenants = await get_all_tenants()
     return tenants
-
-
-@router.post("/downgrade-expired")
-async def downgrade_expired():
-    return await downgrade_expired_plans()
-
-
-
-@router.get("/analytics")
-async def analytics():
-    return await get_analytics()
 
 
 @router.get("/search", response_model=List[TenantOut])

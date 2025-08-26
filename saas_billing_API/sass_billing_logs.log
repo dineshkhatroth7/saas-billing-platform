@@ -139,3 +139,20 @@ updated_at
 2025-08-25 22:07:05,944 - INFO - Found 1 tenants for query 'smith'
 2025-08-25 22:07:24,086 - INFO - Searching tenants with query: smith, filters: [{'name': {'$regex': 'smith', '$options': 'i'}}]
 2025-08-25 22:07:26,035 - INFO - Found 1 tenants for query 'smith'
+2025-08-26 13:09:10,355 - INFO - Fetching analytics data...
+2025-08-26 13:09:15,552 - INFO - Analytics generated successfully: {'tenants': {'total': 6, 'active': 4, 'inactive': 2, 'by_plan': {'free': 2, 'premium': 4, 'enterprise': 0}}, 'billing': {'total_invoices': 8}}
+2025-08-26 13:24:49,018 - INFO - Fetching analytics data...
+2025-08-26 13:24:50,630 - INFO - Analytics generated successfully: {'tenants': {'total': 6, 'active': 4, 'inactive': 2, 'by_plan': {'free': 2, 'premium': 4, 'enterprise': 0}}, 'billing': {'total_invoices': 8}}
+2025-08-26 13:29:10,797 - INFO - Tenant growth company (tenant_id=6) downgraded to Free plan.
+2025-08-26 13:32:51,267 - WARNING - Admin registration failed: admin@gmail.com already exists
+2025-08-26 13:32:51,267 - WARNING - Admin registration failed: admin@gmail.com already exists
+2025-08-26 13:33:34,854 - INFO - Admin logged in: admin@gmail.com
+2025-08-26 13:33:34,854 - INFO - Admin logged in successfully: admin@gmail.com
+2025-08-26 13:33:38,355 - INFO - Admin logged in: admin@gmail.com
+2025-08-26 13:33:38,355 - INFO - Admin logged in successfully: admin@gmail.com
+2025-08-26 13:34:11,271 - INFO - Admin logged in: admin@gmail.com
+2025-08-26 13:34:11,272 - INFO - Admin logged in successfully: admin@gmail.com
+2025-08-26 13:34:34,363 - INFO - Admin [{'sub': '68ad5bd5c569ebe3aa9b3fdd', 'role': 'admin', 'exp': 1756199051}] requested analytics
+2025-08-26 13:34:34,363 - INFO - Fetching analytics data...
+2025-08-26 13:34:36,219 - INFO - Analytics generated successfully: {'tenants': {'total': 6, 'active': 4, 'inactive': 2, 'by_plan': {'free': 3, 'premium': 3, 'enterprise': 0}}, 'billing': {'total_invoices': 8}}
+2025-08-26 13:35:12,070 - INFO - Admin [{'sub': '68ad5bd5c569ebe3aa9b3fdd', 'role': 'admin', 'exp': 1756199051}] triggered downgrade of expired plans
