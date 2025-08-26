@@ -399,3 +399,20 @@ async def reactivate_tenant(tenant_id: int) -> TenantOut:
     updated["id"] = str(updated["_id"])
     logger.info(f"Tenant {tenant_id} reactivated successfully")
     return TenantOut(**updated)
+
+async def search_tenant_by_name_or_id(query: str):
+    filters = []
+    filters.append({"name": {"$regex": query, "$options": "i"}})
+
+    if query.isdigit():
+        filters.append({"tenant_id": int(query)}) 
+        
+    logger.info(f"Searching tenants with query: {query}, filters: {filters}")
+    tenants = await tenants_collection.find({"$or": filters}).to_list(length=None)
+    for tenant in tenants:
+        tenant["id"] = str(tenant["_id"])
+        del tenant["_id"]
+
+    logger.info(f"Found {len(tenants)} tenants for query '{query}'")
+
+    return tenants
