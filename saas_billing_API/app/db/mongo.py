@@ -7,3 +7,4 @@ client = AsyncIOMotorClient(MONGO_URI)
 db = client["sass_billing_model"]
 tenants_collection = db["Tenants"]
 invoices_collection = db["invoices"]
+admins_collection = db["admins"]
