@@ -1,6 +1,6 @@
 from datetime import datetime, timezone,timedelta
 from fastapi import HTTPException
-from app.db.mongo import tenants_collection,invoices_collection
+from app.db.mongo import tenants_collection,invoices_collection,notifications_collection
 from app.models.tenants_model import TenantCreate, TenantOut,UsageRecord,UsageSummary,Invoice
 from app.utils.logger import logger
 from app.utils.plans import plans
@@ -416,3 +416,30 @@ async def search_tenant_by_name_or_id(query: str):
     logger.info(f"Found {len(tenants)} tenants for query '{query}'")
 
     return tenants
+
+async def get_notifications(tenant_id: int):
+    logger.info(f"Fetching notifications for tenant_id={tenant_id}")
+
+    try:
+        cursor = notifications_collection.find({"tenant_id": tenant_id})
+        notifications = await cursor.to_list(length=100)
+
+        if not notifications:
+            logger.warning(f"No notifications found for tenant_id={tenant_id}")
+        else:
+            logger.info(f"Fetched {len(notifications)} notifications for tenant_id={tenant_id}")
+
+        return [
+            {
+                "id": str(n["_id"]),
+                "tenant_id": n["tenant_id"],
+                "tenant_name": n["tenant_name"],
+                "message": n["message"],
+                "status": n["status"],
+            }
+            for n in notifications
+        ]
+
+    except Exception as e:
+        logger.error(f"Error fetching notifications for tenant_id={tenant_id}: {e}")
+        raise

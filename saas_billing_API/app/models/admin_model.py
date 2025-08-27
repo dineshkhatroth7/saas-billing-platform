@@ -7,3 +7,6 @@ class AdminCreate(BaseModel):
 class AdminLogin(BaseModel):
     email: EmailStr
     password: str
+
+class NotificationRequest(BaseModel):
+    message: str
