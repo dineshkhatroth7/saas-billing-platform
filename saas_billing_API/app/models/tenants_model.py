@@ -49,3 +49,9 @@ class Invoice(BaseModel):
     total_due: float
     usage_snapshot: Dict[str, int] 
     id: str = Field(default=None, alias="_id")  
+
+class TenantNotification(BaseModel):
+    tenant_id: int
+    tenant_name: str
+    message: str
+    status: str   

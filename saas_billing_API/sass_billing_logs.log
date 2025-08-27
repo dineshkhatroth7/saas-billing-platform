@@ -156,3 +156,31 @@ updated_at
 2025-08-26 13:34:34,363 - INFO - Fetching analytics data...
 2025-08-26 13:34:36,219 - INFO - Analytics generated successfully: {'tenants': {'total': 6, 'active': 4, 'inactive': 2, 'by_plan': {'free': 3, 'premium': 3, 'enterprise': 0}}, 'billing': {'total_invoices': 8}}
 2025-08-26 13:35:12,070 - INFO - Admin [{'sub': '68ad5bd5c569ebe3aa9b3fdd', 'role': 'admin', 'exp': 1756199051}] triggered downgrade of expired plans
+2025-08-26 23:11:59,804 - INFO - Admin logged in: admin@gmail.com
+2025-08-26 23:11:59,805 - INFO - Admin logged in successfully: admin@gmail.com
+2025-08-26 23:14:15,515 - INFO - Admin logged in: admin@gmail.com
+2025-08-26 23:14:15,516 - INFO - Admin logged in successfully: admin@gmail.com
+2025-08-26 23:28:49,904 - INFO - Notification to smith (ID: 3): Your subscription will expire in 3 days!
+2025-08-26 23:28:49,904 - INFO - Admin 68ad5bd5c569ebe3aa9b3fdd sent notification to tenant 3: Your subscription will expire in 3 days!
+2025-08-26 23:42:51,422 - INFO - Notification to smith (ID: 3): Your subscription will expire in 3 days!
+2025-08-26 23:42:51,422 - INFO - Admin 68ad5bd5c569ebe3aa9b3fdd sent notification to tenant 3: Your subscription will expire in 3 days!
+2025-08-26 23:43:14,779 - INFO - Notification to smith (ID: 3): Your subscription will expire in 3 days!
+2025-08-26 23:43:14,779 - INFO - Admin 68ad5bd5c569ebe3aa9b3fdd sent notification to tenant 3: Your subscription will expire in 3 days!
+2025-08-27 12:44:03,430 - INFO - Admin logged in: admin@gmail.com
+2025-08-27 12:44:03,432 - INFO - Admin logged in successfully: admin@gmail.com
+2025-08-27 12:44:25,019 - INFO - Notification to smith (ID: 3): Your subscription will expire in 3 days!
+2025-08-27 12:44:25,019 - INFO - Admin 68ad5bd5c569ebe3aa9b3fdd sent notification to tenant 3: Your subscription will expire in 3 days!
+2025-08-27 13:30:40,461 - INFO - Fetching notifications for tenant_id=3
+2025-08-27 13:30:43,096 - INFO - Fetched 3 notifications for tenant_id=3
+2025-08-27 13:31:00,852 - INFO - Fetching notifications for tenant_id=3
+2025-08-27 13:31:00,987 - INFO - Fetched 3 notifications for tenant_id=3
+2025-08-27 13:31:14,905 - INFO - Notification to Acme Corp (ID: 2): Your subscription will expire in 3 days!
+2025-08-27 13:31:14,905 - INFO - Admin 68ad5bd5c569ebe3aa9b3fdd sent notification to tenant 2: Your subscription will expire in 3 days!
+2025-08-27 13:31:30,943 - INFO - Fetching notifications for tenant_id=2
+2025-08-27 13:31:31,046 - INFO - Fetched 1 notifications for tenant_id=2
+2025-08-27 17:06:01,079 - INFO - Fetching notifications for tenant_id=2
+2025-08-27 17:06:02,994 - INFO - Fetching notifications for tenant_id=2
+2025-08-27 17:06:05,145 - INFO - Fetched 1 notifications for tenant_id=2
+2025-08-27 17:06:06,084 - INFO - Fetched 1 notifications for tenant_id=2
+2025-08-27 17:06:12,890 - INFO - Fetching notifications for tenant_id=2
+2025-08-27 17:06:12,983 - INFO - Fetched 1 notifications for tenant_id=2

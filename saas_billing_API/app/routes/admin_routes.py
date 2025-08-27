@@ -1,6 +1,6 @@
-from fastapi import APIRouter, Depends
-from app.models.admin_model import AdminCreate, AdminLogin
-from app.services.admin_service import register_admin, login_admin
+from fastapi import APIRouter, Depends,HTTPException,Query
+from app.models.admin_model import AdminCreate, AdminLogin,NotificationRequest
+from app.services.admin_service import register_admin, login_admin,send_notification
 from app.services.tenants_service import get_analytics, downgrade_expired_plans
 from app.utils.jwt import admin_required
 from app.utils.logger import logger  
@@ -37,3 +37,16 @@ async def analytics(admin=Depends(admin_required)):
 async def downgrade_expired(admin=Depends(admin_required)):
     logger.info(f"Admin [{admin}] triggered downgrade of expired plans")  
     return await downgrade_expired_plans()
+
+@router.post("/admin/notify/{tenant_id}")
+async def notify_tenant(
+    tenant_id: int,
+    req: NotificationRequest,
+    admin=Depends(admin_required)):
+    try:
+        await send_notification(tenant_id, req.message)
+        logger.info(f"Admin {admin['sub']} sent notification to tenant {tenant_id}: {req.message}")
+        return {"status": "success", "tenant_id": tenant_id, "message": req.message}
+    except HTTPException as e:
+        logger.error(f"Failed to notify tenant {tenant_id}: {e.detail}")
+        raise

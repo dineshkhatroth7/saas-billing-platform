@@ -3,10 +3,10 @@ import jwt
 from datetime import datetime, timedelta, timezone
 from fastapi import HTTPException, Header
 
-# JWT configuration
-SECRET_KEY = os.getenv("SECRET_KEY", "your_secret_key_here")
+
+SECRET_KEY = os.getenv("SECRET_KEY")
 ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 60  # 1 hour
+ACCESS_TOKEN_EXPIRE_MINUTES = 60  
 
 
 def create_access_token(data: dict, expires_minutes: int = ACCESS_TOKEN_EXPIRE_MINUTES) -> str:

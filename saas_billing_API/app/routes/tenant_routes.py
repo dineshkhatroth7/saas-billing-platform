@@ -1,6 +1,6 @@
 from fastapi import APIRouter,Query
-from app.models.tenants_model import TenantCreate,TenantOut,UsageRecord,PlanUpdate,TenantDeleteResponse,UsageSummary,Invoice
-from app.services.tenants_service import create_tenant,record_usage,generate_invoice,get_tenant,update_tenant_plan,deactivate_tenant,get_tenant_usage,get_invoice_by_tenant,get_all_tenants,reactivate_tenant,search_tenant_by_name_or_id
+from app.models.tenants_model import TenantCreate,TenantOut,UsageRecord,PlanUpdate,TenantDeleteResponse,UsageSummary,Invoice,TenantNotification
+from app.services.tenants_service import create_tenant,record_usage,generate_invoice,get_tenant,update_tenant_plan,deactivate_tenant,get_tenant_usage,get_invoice_by_tenant,get_all_tenants,reactivate_tenant,search_tenant_by_name_or_id,get_notifications
 from typing import List
 
 
@@ -67,3 +67,6 @@ async def fetch_invoice_by_tenant(tenant_id: int):
 async def reactivate_tenant_route(tenant_id: int):
     return await reactivate_tenant(tenant_id)
 
+@router.get("/{tenant_id}/notifications", response_model=List[TenantNotification])
+async def fetch_notifications(tenant_id: int):
+    return await get_notifications(tenant_id)
