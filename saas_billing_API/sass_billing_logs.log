@@ -184,3 +184,36 @@ updated_at
 2025-08-27 17:06:06,084 - INFO - Fetched 1 notifications for tenant_id=2
 2025-08-27 17:06:12,890 - INFO - Fetching notifications for tenant_id=2
 2025-08-27 17:06:12,983 - INFO - Fetched 1 notifications for tenant_id=2
+2025-08-28 13:11:47,123 - WARNING - Tenant creation failed: growth company already exists.
+2025-08-28 13:11:47,125 - ERROR - Unexpected error during tenant creation: Tenant 'growth company' already exists.
+2025-08-28 13:19:46,381 - WARNING - Tenant creation failed: growth company already exists.
+2025-08-28 13:19:46,381 - ERROR - Unexpected error during tenant creation: Tenant 'growth company' already exists.
+2025-08-28 13:20:21,881 - WARNING - Tenant creation failed: growth company already exists.
+2025-08-28 13:20:21,882 - ERROR - Unexpected error during tenant creation: Tenant 'growth company' already exists.
+2025-08-28 13:26:19,700 - WARNING - Tenant creation failed: growth company already exists.
+2025-08-28 13:26:19,700 - ERROR - Unexpected error during tenant creation: Tenant 'growth company' already exists.
+2025-08-28 13:26:40,227 - INFO - Tenant created: grow company (tenant_id=7, id=68b00bb8061bf130255cbf74)
+2025-08-28 13:44:34,027 - INFO - Invoice stored with id 68b00fe9480965053c92cd01 for tenant 7
+2025-08-28 13:46:35,968 - INFO - Fetched tenant 7 successfully.
+2025-08-28 13:47:20,246 - INFO - Tenant 7 updated to plan 'premium'.
+2025-08-28 13:47:38,034 - INFO - Tenant 7 updated to plan 'free'.
+2025-08-28 13:47:46,848 - INFO - Tenant 7 updated to plan 'premium'.
+2025-08-28 13:49:58,663 - INFO - Fetching usage for tenant_id=7
+2025-08-28 13:50:49,819 - INFO - Fetched 7 tenants from database.
+2025-08-28 13:51:16,395 - INFO - Fetching usage for tenant_id=7
+2025-08-28 13:52:53,521 - INFO - Fetched 7 tenants from database.
+2025-08-28 13:52:59,115 - INFO - Fetched 7 tenants from database.
+2025-08-28 13:53:35,856 - WARNING - Tenant creation failed: grow company already exists.
+2025-08-28 13:53:35,856 - ERROR - Unexpected error during tenant creation: Tenant 'grow company' already exists.
+2025-08-28 13:54:40,399 - INFO - Invoice stored with id 68b01248873ea9496af2d9ef for tenant 7
+2025-08-28 13:55:07,462 - INFO - Fetched tenant 7 successfully.
+2025-08-28 13:56:02,271 - INFO - Tenant 7 updated to plan 'free'.
+2025-08-28 13:57:01,459 - INFO - Fetched 7 tenants from database.
+2025-08-28 13:57:18,915 - INFO - Fetched 7 tenants from database.
+2025-08-28 13:58:14,290 - INFO - Fetching notifications for tenant_id=7
+2025-08-28 13:58:14,390 - WARNING - No notifications found for tenant_id=7
+2025-08-28 13:59:03,791 - INFO - Tenant 3 is already active
+2025-08-28 13:59:59,620 - INFO - Fetched 7 tenants from database.
+2025-08-28 14:01:34,733 - INFO - Invoice stored with id 68b013e6873ea9496af2d9f0 for tenant 7
+2025-08-28 14:02:20,268 - INFO - Fetched latest invoice for tenant 7
+2025-08-28 14:03:32,878 - INFO - Fetching usage for tenant_id=7
