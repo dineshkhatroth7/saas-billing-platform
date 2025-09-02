@@ -1,13 +1,15 @@
-from fastapi import APIRouter, Depends,HTTPException,Query
+from fastapi import APIRouter, Depends,HTTPException
 from app.models.admin_model import AdminCreate, AdminLogin,NotificationRequest
 from app.services.admin_service import register_admin, login_admin,send_notification
 from app.services.tenants_service import get_analytics, downgrade_expired_plans
 from app.utils.jwt import admin_required
 from app.utils.logger import logger  
+from app.utils.decorators import log_execution_time
 
 router = APIRouter()
 
 @router.post("/admin/register")
+@log_execution_time
 async def register(admin: AdminCreate):
     result = await register_admin(admin.email, admin.password)
     if not result:
@@ -18,6 +20,7 @@ async def register(admin: AdminCreate):
 
 
 @router.post("/admin/login")
+@log_execution_time
 async def login(admin: AdminLogin):
     token = await login_admin(admin.email, admin.password)
     if not token:
@@ -28,17 +31,20 @@ async def login(admin: AdminLogin):
 
 
 @router.get("/admin/analytics")
+@log_execution_time
 async def analytics(admin=Depends(admin_required)):
     logger.info(f"Admin [{admin}] requested analytics")  
     return await get_analytics()
 
 
 @router.post("/admin/downgrade-expired")
+@log_execution_time
 async def downgrade_expired(admin=Depends(admin_required)):
     logger.info(f"Admin [{admin}] triggered downgrade of expired plans")  
     return await downgrade_expired_plans()
 
 @router.post("/admin/notify/{tenant_id}")
+@log_execution_time
 async def notify_tenant(
     tenant_id: int,
     req: NotificationRequest,
