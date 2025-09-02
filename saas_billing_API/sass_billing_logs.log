@@ -217,3 +217,24 @@ updated_at
 2025-08-28 14:01:34,733 - INFO - Invoice stored with id 68b013e6873ea9496af2d9f0 for tenant 7
 2025-08-28 14:02:20,268 - INFO - Fetched latest invoice for tenant 7
 2025-08-28 14:03:32,878 - INFO - Fetching usage for tenant_id=7
+2025-08-29 09:49:33,015 - WARNING - Tenant creation failed: grow company already exists.
+2025-08-29 09:49:33,016 - ERROR - Unexpected error during tenant creation: Tenant 'grow company' already exists.
+2025-08-29 09:49:56,883 - INFO - Tenant created: row company (tenant_id=8, id=68b12a6c05eae9dae4c1f963)
+2025-08-29 09:49:57,290 - INFO - add_tenant executed in 1547 ms
+2025-08-29 09:57:47,889 - WARNING - Tenant creation failed: row company already exists.
+2025-08-29 09:57:47,889 - ERROR - Unexpected error during tenant creation: Tenant 'row company' already exists.
+2025-08-29 10:04:17,448 - INFO - Fetching usage for tenant_id=8
+2025-08-29 10:04:19,552 - INFO - fetch_tenant_usage executed in 2104 ms
+2025-08-29 10:05:15,446 - INFO - Tenant created: growtech company (tenant_id=9, id=68b12e031fed8b67eafdfe3b)
+2025-08-29 10:05:15,529 - INFO - add_tenant executed in 335 ms
+2025-08-29 10:07:41,578 - WARNING - Tenant creation failed: growtech company already exists.
+2025-08-29 10:07:41,579 - ERROR - Unexpected error during tenant creation: Tenant 'growtech company' already exists.
+2025-08-29 10:08:07,556 - INFO - Tenant created: gotech company (tenant_id=10, id=68b12eaf7c222ff52acf62a7)
+2025-08-29 10:08:07,620 - INFO - add_tenant executed in 295 ms
+2025-08-29 10:08:57,067 - INFO - Fetching usage for tenant_id=8
+2025-08-29 10:08:57,155 - INFO - fetch_tenant_usage executed in 87 ms
+2025-08-29 10:09:07,478 - INFO - Fetching usage for tenant_id=8
+2025-08-29 10:09:07,555 - INFO - fetch_tenant_usage executed in 77 ms
+2025-08-29 10:09:25,950 - INFO - add_usage executed in 161 ms
+2025-08-29 10:10:23,050 - INFO - Fetched tenant 7 successfully.
+2025-08-29 10:10:23,051 - INFO - fetch_tenant executed in 69 ms

@@ -1,10 +1,11 @@
 from pydantic import BaseModel,Field
-from typing import Dict, Any, List,Literal
+from typing import Dict, Any, List,Literal,Optional
 from datetime import datetime
 
 class TenantCreate(BaseModel):
     name: str
     subscription_plan: Literal["free", "premium", "enterprise"]
+
 
 class TenantOut(BaseModel):
     id: str 
@@ -17,6 +18,7 @@ class TenantOut(BaseModel):
     pricing: Dict[str, Any]
     base_price: float
     created_at: datetime
+    execution_time_ms: Optional[int] = None
 
 
 class UsageRecord(BaseModel):
