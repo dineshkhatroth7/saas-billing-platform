@@ -1,3 +1,15 @@
+
+"""
+Subscription plan definitions for the SaaS Billing Platform.
+
+Each plan specifies:
+- Base price
+- Included features
+- Quotas (limits for each feature, None = unlimited)
+- Pricing for overage beyond quotas
+"""
+
+
 plans = {
     "free": {
         "price": 0,

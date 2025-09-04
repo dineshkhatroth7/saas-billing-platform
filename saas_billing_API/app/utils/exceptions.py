@@ -5,6 +5,7 @@ class TenantError(Exception):
 
 
 class TenantNotFoundError(TenantError):
+    """Raised when a tenant is not found in the database."""
     def __init__(self, tenant_id: int):
         self.tenant_id = tenant_id
         self.message = f"Tenant with id {tenant_id} not found."
@@ -13,6 +14,7 @@ class TenantNotFoundError(TenantError):
 
 
 class TenantAlreadyExistsError(TenantError):
+    """Raised when attempting to create a tenant that already exists."""
     def __init__(self, tenant_name: str):
         self.tenant_name = tenant_name
         self.message = f"Tenant '{tenant_name}' already exists."
@@ -20,12 +22,14 @@ class TenantAlreadyExistsError(TenantError):
 
 
 class InvalidPlanError(TenantError):
+    """Raised when an invalid subscription plan is provided."""
     def __init__(self, plan: str):
         self.plan = plan
         self.message = f"Invalid subscription plan: {plan}"
         super().__init__(self.message)
 
 class FeatureNotInPlanError(TenantError):
+    """Raised when a tenant tries to access a feature outside their plan."""
     def __init__(self, feature: str, plan: str):
         self.feature = feature
         self.plan = plan
@@ -33,6 +37,7 @@ class FeatureNotInPlanError(TenantError):
         super().__init__(self.message)
 
 class InvoiceNotFoundError(TenantError):
+    """Raised when no invoice is found for the given tenant."""
     def __init__(self, tenant_id: int):
         self.tenant_id = tenant_id
         self.message = f"No invoice found for tenant {tenant_id}"
