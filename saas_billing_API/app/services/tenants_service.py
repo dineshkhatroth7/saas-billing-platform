@@ -9,6 +9,7 @@ from app.utils.exceptions import TenantNotFoundError,TenantAlreadyExistsError,In
 
 
 async def create_tenant(tenant: TenantCreate) -> TenantOut:
+    """Create a new tenant with subscription details."""
     try:
         existing = await tenants_collection.find_one({"name": tenant.name})
         if existing:
@@ -78,6 +79,7 @@ async def create_tenant(tenant: TenantCreate) -> TenantOut:
 
 
 async def record_usage(tenant_id: int, usage: UsageRecord):
+    """Record feature usage for a tenant."""
     tenant = await tenants_collection.find_one({"tenant_id": tenant_id})
     if not tenant:
         logger.warning(f"Tenant {tenant_id} not found.")
@@ -120,6 +122,7 @@ async def record_usage(tenant_id: int, usage: UsageRecord):
 
 
 async def generate_invoice(tenant_id: int) -> dict:
+    """Generate and store invoice for a tenant."""
     tenant = await tenants_collection.find_one({"tenant_id": tenant_id})
     if not tenant:
         logger.warning(f"Tenant {tenant_id} not found.")
@@ -171,6 +174,7 @@ async def generate_invoice(tenant_id: int) -> dict:
     return invoice
 
 async def downgrade_expired_plans():
+    """Downgrade tenants whose subscription has expired to free plan."""
 
     now = datetime.now(timezone.utc)
 
@@ -216,6 +220,7 @@ async def downgrade_expired_plans():
 
 
 async def get_tenant(tenant_id: int) -> TenantOut:
+    """Fetch tenant details by tenant ID."""
     tenant = await tenants_collection.find_one({"tenant_id": tenant_id})
     if not tenant:
         logger.warning(f"Tenant {tenant_id} not found.")
@@ -229,6 +234,7 @@ async def get_tenant(tenant_id: int) -> TenantOut:
 
 
 async def update_tenant_plan(tenant_id: int, new_plan: str):
+    """Update tenant's subscription plan."""
 
     now = datetime.now(timezone.utc)
 
@@ -270,6 +276,7 @@ async def update_tenant_plan(tenant_id: int, new_plan: str):
     return TenantOut(**tenant)
 
 async def deactivate_tenant(tenant_id: int):
+    """Deactivate a tenant account."""
     tenant = await tenants_collection.find_one({"tenant_id": tenant_id})
     if not tenant:
         logger.warning(f"Tried to deactivate non-existent tenant {tenant_id}.")
@@ -300,6 +307,7 @@ async def deactivate_tenant(tenant_id: int):
 
 
 async def get_tenant_usage(tenant_id: int) -> UsageSummary:
+    """Fetch usage summary for a tenant."""
     logger.info(f"Fetching usage for tenant_id={tenant_id}") 
     tenant = await tenants_collection.find_one({"tenant_id": tenant_id})
     if not tenant:
@@ -321,6 +329,7 @@ async def get_tenant_usage(tenant_id: int) -> UsageSummary:
 
 
 async def get_invoice_by_tenant(tenant_id: int) -> Invoice:
+    """Fetch latest invoice for a tenant."""
     invoice_doc = await invoices_collection.find_one(
         {"tenant_id": tenant_id}, sort=[("billing_date", -1)]
     )
@@ -337,6 +346,7 @@ async def get_invoice_by_tenant(tenant_id: int) -> Invoice:
 
 
 async def get_all_tenants() -> List[TenantOut]:
+    """Fetch all tenants from database."""
     try:
         tenants_cursor = tenants_collection.find()
         tenants = await tenants_cursor.to_list(length=None)
@@ -369,6 +379,7 @@ async def get_all_tenants() -> List[TenantOut]:
         raise
 
 async def get_analytics():
+    """Generate analytics summary for tenants and billing."""
     logger.info("Fetching analytics data...")
 
     total_tenants = await tenants_collection.count_documents({})
@@ -401,6 +412,7 @@ async def get_analytics():
     return analytics_data
 
 async def reactivate_tenant(tenant_id: int) -> TenantOut:
+    """Reactivate a deactivated tenant."""
     tenant = await tenants_collection.find_one({"tenant_id": tenant_id})
     if not tenant:
         logger.error(f"Tenant {tenant_id} not found for reactivation")
@@ -422,6 +434,7 @@ async def reactivate_tenant(tenant_id: int) -> TenantOut:
     return TenantOut(**updated)
 
 async def search_tenant_by_name_or_id(query: str):
+    """Search tenants by name (regex) or tenant ID."""
     filters = []
     filters.append({"name": {"$regex": query, "$options": "i"}})
 
@@ -439,6 +452,7 @@ async def search_tenant_by_name_or_id(query: str):
     return tenants
 
 async def get_notifications(tenant_id: int):
+    """Fetch notifications for a tenant."""
     logger.info(f"Fetching notifications for tenant_id={tenant_id}")
 
     try:

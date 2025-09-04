@@ -5,10 +5,14 @@ from app.utils.jwt import create_access_token
 from app.utils.logger import logger  
 
 async def register_admin(email: str, password: str):
+    """
+    Register a new admin with hashed password.
+    Raises HTTPException if the admin already exists.
+    """
     existing = await admins_collection.find_one({"email": email})
     if existing:
         logger.warning(f"Admin registration failed: {email} already exists")  
-        return None
+        raise HTTPException(status_code=400, detail="Admin already exists")
 
     hashed_password = bcrypt.hash(password)
     result = await admins_collection.insert_one({
@@ -20,10 +24,14 @@ async def register_admin(email: str, password: str):
 
 
 async def login_admin(email: str, password: str):
+    """
+    Authenticate an admin and return a JWT token.
+    Raises HTTPException if credentials are invalid.
+    """
     admin = await admins_collection.find_one({"email": email})
     if not admin or not bcrypt.verify(password, admin["password"]):
         logger.warning(f"Admin login failed: {email}")  
-        return None
+        raise HTTPException(status_code=401, detail="Invalid credentials")
 
     token = create_access_token({"sub": str(admin["_id"]), "role": "admin"})
     logger.info(f"Admin logged in: {email}")  
@@ -32,6 +40,10 @@ async def login_admin(email: str, password: str):
 
 
 async def send_notification(tenant_id: int, message: str):
+    """
+    Send a notification to a tenant.
+    Raises HTTPException if tenant does not exist.
+    """
     tenant = await tenants_collection.find_one({"tenant_id": tenant_id})
     if not tenant:
         logger.warning(f"Tried to send notification to non-existent tenant {tenant_id}")
@@ -44,4 +56,4 @@ async def send_notification(tenant_id: int, message: str):
     })
 
     logger.info(f"Notification to {tenant['name']} (ID: {tenant_id}): {message}")
-    return True
+    return {"status": "success", "tenant_id": tenant_id, "message": message}

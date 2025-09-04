@@ -238,3 +238,29 @@ updated_at
 2025-08-29 10:09:25,950 - INFO - add_usage executed in 161 ms
 2025-08-29 10:10:23,050 - INFO - Fetched tenant 7 successfully.
 2025-08-29 10:10:23,051 - INFO - fetch_tenant executed in 69 ms
+2025-09-04 12:03:06,250 - WARNING - Tenant creation failed: gotech company already exists.
+2025-09-04 12:03:06,250 - ERROR - Unexpected error during tenant creation: Tenant 'gotech company' already exists.
+2025-09-04 12:03:14,279 - INFO - Fetching usage for tenant_id=8
+2025-09-04 12:03:14,827 - INFO - fetch_tenant_usage executed in 549 ms
+2025-09-04 12:03:20,687 - INFO - Invoice stored with id 68b932b06cf7c1ee8ea21e46 for tenant 7
+2025-09-04 12:03:20,688 - INFO - get_billing executed in 249 ms
+2025-09-04 12:05:00,737 - INFO - Fetched tenant 7 successfully.
+2025-09-04 12:05:00,737 - INFO - fetch_tenant executed in 97 ms
+2025-09-04 12:05:07,958 - INFO - Tenant 7 updated to plan 'free'.
+2025-09-04 12:05:07,958 - INFO - change_plan executed in 195 ms
+2025-09-04 12:05:14,717 - INFO - Tenant 3 deactivated successfully.
+2025-09-04 12:05:14,718 - INFO - delete_tenant executed in 576 ms
+2025-09-04 12:05:21,236 - INFO - Fetching usage for tenant_id=7
+2025-09-04 12:05:21,312 - INFO - fetch_tenant_usage executed in 76 ms
+2025-09-04 12:05:36,076 - INFO - Fetched 11 tenants from database.
+2025-09-04 12:05:36,076 - INFO - list_tenants executed in 94 ms
+2025-09-04 12:05:41,827 - INFO - Fetched 11 tenants from database.
+2025-09-04 12:05:41,827 - INFO - list_tenants executed in 72 ms
+2025-09-04 12:06:11,018 - INFO - add_usage executed in 218 ms
+2025-09-04 12:06:16,726 - INFO - Fetched latest invoice for tenant 7
+2025-09-04 12:06:16,726 - INFO - fetch_invoice_by_tenant executed in 166 ms
+2025-09-04 12:06:22,582 - INFO - Invoice stored with id 68b933666cf7c1ee8ea21e47 for tenant 7
+2025-09-04 12:06:22,582 - INFO - create_invoice executed in 256 ms
+2025-09-04 12:06:28,684 - INFO - Fetching notifications for tenant_id=7
+2025-09-04 12:06:28,780 - WARNING - No notifications found for tenant_id=7
+2025-09-04 12:06:28,780 - INFO - fetch_notifications executed in 96 ms

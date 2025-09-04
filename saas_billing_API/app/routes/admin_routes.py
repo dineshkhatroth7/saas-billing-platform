@@ -8,9 +8,10 @@ from app.utils.decorators import log_execution_time
 
 router = APIRouter()
 
-@router.post("/admin/register")
+@router.post("/admin/register", summary="Register a new admin")
 @log_execution_time
 async def register(admin: AdminCreate):
+    """Registers a new admin. Fails if the email already exists."""
     result = await register_admin(admin.email, admin.password)
     if not result:
         logger.warning(f"Admin registration failed: {admin.email} already exists")  
@@ -19,9 +20,10 @@ async def register(admin: AdminCreate):
     return result
 
 
-@router.post("/admin/login")
+@router.post("/admin/login", summary="Admin login")
 @log_execution_time
 async def login(admin: AdminLogin):
+    """Authenticate admin and return JWT access token."""
     token = await login_admin(admin.email, admin.password)
     if not token:
         logger.warning(f"Admin login failed: {admin.email}")  
@@ -30,25 +32,30 @@ async def login(admin: AdminLogin):
     return {"access_token": token, "token_type": "bearer"}
 
 
-@router.get("/admin/analytics")
+@router.get("/admin/analytics", summary="Get platform analytics")
 @log_execution_time
 async def analytics(admin=Depends(admin_required)):
+    """Return overall analytics for the platform (admin-only)."""
     logger.info(f"Admin [{admin}] requested analytics")  
     return await get_analytics()
 
 
-@router.post("/admin/downgrade-expired")
+@router.post("/admin/downgrade-expired", summary="Downgrade expired tenants")
+@log_execution_time
 @log_execution_time
 async def downgrade_expired(admin=Depends(admin_required)):
+    """Force downgrade of tenants whose plans have expired (admin-only)."""
     logger.info(f"Admin [{admin}] triggered downgrade of expired plans")  
     return await downgrade_expired_plans()
 
-@router.post("/admin/notify/{tenant_id}")
+@router.post("/admin/notify/{tenant_id}", summary="Send notification to tenant")
+@log_execution_time
 @log_execution_time
 async def notify_tenant(
     tenant_id: int,
     req: NotificationRequest,
     admin=Depends(admin_required)):
+    """Send a custom notification to a specific tenant (admin-only)."""
     try:
         await send_notification(tenant_id, req.message)
         logger.info(f"Admin {admin['sub']} sent notification to tenant {tenant_id}: {req.message}")

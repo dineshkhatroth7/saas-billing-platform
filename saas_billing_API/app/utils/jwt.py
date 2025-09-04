@@ -47,3 +47,5 @@ async def admin_required(authorization: str = Header(...)) -> dict:
     if payload.get("role") != "admin":
         raise HTTPException(status_code=403, detail="Not authorized as admin")
     return payload
+
+
