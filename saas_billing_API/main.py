@@ -14,7 +14,7 @@ app = FastAPI(title="Multi-Tenant SaaS Billing & Usage Analytics Platform")
 
 
 app.include_router(tenant_routes.router, prefix="/tenants", tags=["Tenants"])
-app.include_router(admin_routes.router)
+app.include_router(admin_routes.router,tags=["Admin"])
 
 
 
