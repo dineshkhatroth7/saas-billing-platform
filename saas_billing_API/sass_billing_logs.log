@@ -264,3 +264,21 @@ updated_at
 2025-09-04 12:06:28,684 - INFO - Fetching notifications for tenant_id=7
 2025-09-04 12:06:28,780 - WARNING - No notifications found for tenant_id=7
 2025-09-04 12:06:28,780 - INFO - fetch_notifications executed in 96 ms
+2025-09-09 17:09:42,283 - INFO - Fetched 11 tenants from database.
+2025-09-09 17:09:42,285 - INFO - list_tenants executed in 2206 ms
+2025-09-09 17:11:17,681 - INFO - Fetched latest invoice for tenant 4
+2025-09-09 17:11:17,681 - INFO - fetch_invoice_by_tenant executed in 103 ms
+2025-09-09 17:12:49,225 - INFO - Fetched 11 tenants from database.
+2025-09-09 17:12:49,226 - INFO - list_tenants executed in 108 ms
+2025-09-09 17:14:31,406 - INFO - add_usage executed in 634 ms
+2025-09-09 17:14:47,123 - ERROR - Tenant 4 attempted to use feature 'api_cal' which is not included in plan 'premium'.
+2025-09-10 11:41:37,795 - INFO - Fetched 11 tenants from database.
+2025-09-10 11:41:37,795 - INFO - list_tenants executed in 2255 ms
+2025-09-10 11:42:28,279 - INFO - Fetched 11 tenants from database.
+2025-09-10 11:42:28,279 - INFO - list_tenants executed in 132 ms
+2025-09-10 11:42:53,389 - INFO - Fetching usage for tenant_id=4
+2025-09-10 11:42:53,462 - INFO - fetch_tenant_usage executed in 74 ms
+2025-09-10 11:42:55,622 - INFO - Fetching usage for tenant_id=4
+2025-09-10 11:42:55,721 - INFO - fetch_tenant_usage executed in 100 ms
+2025-09-10 11:42:58,796 - INFO - Fetching usage for tenant_id=4
+2025-09-10 11:42:58,889 - INFO - fetch_tenant_usage executed in 93 ms
