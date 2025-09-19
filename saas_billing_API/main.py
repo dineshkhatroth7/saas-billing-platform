@@ -42,3 +42,10 @@ async def feature_not_in_plan_handler(request: Request, exc: FeatureNotInPlanErr
 async def invoice_not_found_handler(request: Request, exc: InvoiceNotFoundError):
     """Handle missing invoice errors with 404 response."""
     return JSONResponse(status_code=404, content={"detail": exc.message})
+
+
+
+@app.get("/", tags=["Health"])
+async def health_check():
+    """Health check endpoint to verify the app is running."""
+    return {"status": "ok", "message": "SaaS Billing API is up and running"}

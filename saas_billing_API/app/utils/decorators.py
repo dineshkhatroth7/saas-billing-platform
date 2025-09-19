@@ -21,7 +21,7 @@ def log_execution_time(func):
         logger.info(f"{func.__name__} executed in {duration} ms")
          
         if hasattr(result, "dict"):
-            result_dict = result.dict()
+            result_dict = result.model_dump()
             result_dict["execution_time_ms"] = duration
             return result_dict
         elif isinstance(result, dict):
