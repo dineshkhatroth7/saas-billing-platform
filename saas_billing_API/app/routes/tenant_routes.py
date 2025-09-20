@@ -1,8 +1,8 @@
 from fastapi import APIRouter,Query
-from app.models.tenants_model import TenantCreate,TenantOut,UsageRecord,PlanUpdate,TenantDeleteResponse,UsageSummary,Invoice,TenantNotification
-from app.services.tenants_service import create_tenant,record_usage,generate_invoice,get_tenant,update_tenant_plan,deactivate_tenant,get_tenant_usage,get_invoice_by_tenant,get_all_tenants,reactivate_tenant,search_tenant_by_name_or_id,get_notifications
+from saas_billing_API.app.models.tenants_model import TenantCreate,TenantOut,UsageRecord,PlanUpdate,TenantDeleteResponse,UsageSummary,Invoice,TenantNotification
+from saas_billing_API.app.services.tenants_service import create_tenant,record_usage,generate_invoice,get_tenant,update_tenant_plan,deactivate_tenant,get_tenant_usage,get_invoice_by_tenant,get_all_tenants,reactivate_tenant,search_tenant_by_name_or_id,get_notifications
 from typing import List
-from app.utils.decorators import log_execution_time
+from saas_billing_API.app.utils.decorators import log_execution_time
 
 
 router = APIRouter()

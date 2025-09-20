@@ -1,8 +1,8 @@
 from fastapi import HTTPException
-from app.db.mongo import  tenants_collection,notifications_collection,admins_collection
+from saas_billing_API.app.db.mongo import  tenants_collection,notifications_collection,admins_collection
 from passlib.hash import bcrypt
-from app.utils.jwt import create_access_token
-from app.utils.logger import logger  
+from saas_billing_API.app.utils.jwt import create_access_token
+from saas_billing_API.app.utils.logger import logger  
 
 async def register_admin(email: str, password: str):
     """

@@ -1,10 +1,10 @@
 from fastapi import APIRouter, Depends,HTTPException
-from app.models.admin_model import AdminCreate, AdminLogin,NotificationRequest
-from app.services.admin_service import register_admin, login_admin,send_notification
-from app.services.tenants_service import get_analytics, downgrade_expired_plans
-from app.utils.jwt import admin_required
-from app.utils.logger import logger  
-from app.utils.decorators import log_execution_time
+from saas_billing_API.app.models.admin_model import AdminCreate, AdminLogin,NotificationRequest
+from saas_billing_API.app.services.admin_service import register_admin, login_admin,send_notification
+from saas_billing_API.app.services.tenants_service import get_analytics, downgrade_expired_plans
+from saas_billing_API.app.utils.jwt import admin_required
+from saas_billing_API.app.utils.logger import logger  
+from saas_billing_API.app.utils.decorators import log_execution_time
 
 router = APIRouter()
 

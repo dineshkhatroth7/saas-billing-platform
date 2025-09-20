@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
-from app.routes import tenant_routes, admin_routes
-from app.utils.exceptions import (
+from saas_billing_API.app.routes import tenant_routes,admin_routes
+from saas_billing_API.app.utils.exceptions import (
     TenantNotFoundError,
     TenantAlreadyExistsError,
     InvalidPlanError,

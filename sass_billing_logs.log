@@ -1,0 +1,132 @@
+2025-09-20 14:42:10,897 - WARNING - Admin registration failed: admin@example.com already exists
+2025-09-20 14:42:10,901 - INFO - HTTP Request: POST http://testserver/admin/register "HTTP/1.1 400 Bad Request"
+2025-09-20 14:42:11,000 - WARNING - Admin registration failed: admin@example.com already exists
+2025-09-20 14:42:11,001 - INFO - HTTP Request: POST http://testserver/admin/register "HTTP/1.1 400 Bad Request"
+2025-09-20 14:42:11,395 - INFO - Admin logged in: admin@example.com
+2025-09-20 14:42:11,395 - INFO - Admin logged in successfully: admin@example.com
+2025-09-20 14:42:11,396 - INFO - login executed in 380 ms
+2025-09-20 14:42:11,398 - INFO - HTTP Request: POST http://testserver/admin/login "HTTP/1.1 200 OK"
+2025-09-20 14:42:11,496 - WARNING - Admin registration failed: admin@example.com already exists
+2025-09-20 14:42:11,498 - INFO - HTTP Request: POST http://testserver/admin/register "HTTP/1.1 400 Bad Request"
+2025-09-20 14:42:12,073 - INFO - Admin logged in: admin@example.com
+2025-09-20 14:42:12,073 - INFO - Admin logged in successfully: admin@example.com
+2025-09-20 14:42:12,073 - INFO - login executed in 571 ms
+2025-09-20 14:42:12,074 - INFO - HTTP Request: POST http://testserver/admin/login "HTTP/1.1 200 OK"
+2025-09-20 14:42:12,076 - INFO - Admin [{'sub': '68cd78a7aeb816a69f41703c', 'role': 'admin', 'exp': 1758363132}] requested analytics
+2025-09-20 14:42:12,076 - INFO - Fetching analytics data...
+2025-09-20 14:42:13,232 - INFO - Analytics generated successfully: {'tenants': {'total': 28, 'active': 28, 'inactive': 0, 'by_plan': {'free': 0, 'premium': 28, 'enterprise': 0}}, 'billing': {'total_invoices': 13}}
+2025-09-20 14:42:13,233 - INFO - analytics executed in 1157 ms
+2025-09-20 14:42:13,234 - INFO - HTTP Request: GET http://testserver/admin/analytics "HTTP/1.1 200 OK"
+2025-09-20 14:42:13,455 - WARNING - Admin registration failed: admin@example.com already exists
+2025-09-20 14:42:13,456 - INFO - HTTP Request: POST http://testserver/admin/register "HTTP/1.1 400 Bad Request"
+2025-09-20 14:42:14,401 - INFO - Admin logged in: admin@example.com
+2025-09-20 14:42:14,401 - INFO - Admin logged in successfully: admin@example.com
+2025-09-20 14:42:14,401 - INFO - login executed in 940 ms
+2025-09-20 14:42:14,402 - INFO - HTTP Request: POST http://testserver/admin/login "HTTP/1.1 200 OK"
+2025-09-20 14:42:14,885 - INFO - Tenant created: Tenant_5e8b4147 (tenant_id=58, id=68ce6fee749c8ac5391dadc7)
+2025-09-20 14:42:15,094 - INFO - add_tenant executed in 690 ms
+2025-09-20 14:42:15,095 - INFO - HTTP Request: POST http://testserver/tenants/ "HTTP/1.1 200 OK"
+2025-09-20 14:42:15,503 - INFO - Notification to Tenant_5e8b4147 (ID: 58): Test notification
+2025-09-20 14:42:15,503 - INFO - Admin 68cd78a7aeb816a69f41703c sent notification to tenant 58: Test notification
+2025-09-20 14:42:15,504 - INFO - notify_tenant executed in 403 ms
+2025-09-20 14:42:15,504 - INFO - notify_tenant executed in 403 ms
+2025-09-20 14:42:15,506 - INFO - HTTP Request: POST http://testserver/admin/notify/58 "HTTP/1.1 200 OK"
+2025-09-20 14:42:15,525 - INFO - HTTP Request: GET http://testserver/ "HTTP/1.1 200 OK"
+2025-09-20 14:42:15,544 - INFO - HTTP Request: GET http://testserver/docs "HTTP/1.1 200 OK"
+2025-09-20 14:42:15,801 - INFO - Tenant created: Tenant_1fd35e6a (tenant_id=59, id=68ce6fef749c8ac5391dadc9)
+2025-09-20 14:42:16,118 - INFO - add_tenant executed in 560 ms
+2025-09-20 14:42:16,119 - INFO - HTTP Request: POST http://testserver/tenants/ "HTTP/1.1 200 OK"
+2025-09-20 14:42:17,033 - INFO - Tenant created: Tenant_2ec14895 (tenant_id=60, id=68ce6ff0749c8ac5391dadca)
+2025-09-20 14:42:17,123 - INFO - add_tenant executed in 992 ms
+2025-09-20 14:42:17,125 - INFO - HTTP Request: POST http://testserver/tenants/ "HTTP/1.1 200 OK"
+2025-09-20 14:42:17,424 - INFO - Fetched 31 tenants from database.
+2025-09-20 14:42:17,424 - INFO - list_tenants executed in 296 ms
+2025-09-20 14:42:17,427 - INFO - HTTP Request: GET http://testserver/tenants/ "HTTP/1.1 200 OK"
+2025-09-20 14:43:15,179 - WARNING - Admin registration failed: admin@example.com already exists
+2025-09-20 14:43:15,182 - INFO - HTTP Request: POST http://testserver/admin/register "HTTP/1.1 400 Bad Request"
+2025-09-20 14:43:15,290 - WARNING - Admin registration failed: admin@example.com already exists
+2025-09-20 14:43:15,291 - INFO - HTTP Request: POST http://testserver/admin/register "HTTP/1.1 400 Bad Request"
+2025-09-20 14:43:15,891 - INFO - Admin logged in: admin@example.com
+2025-09-20 14:43:15,891 - INFO - Admin logged in successfully: admin@example.com
+2025-09-20 14:43:15,891 - INFO - login executed in 587 ms
+2025-09-20 14:43:15,892 - INFO - HTTP Request: POST http://testserver/admin/login "HTTP/1.1 200 OK"
+2025-09-20 14:43:16,013 - WARNING - Admin registration failed: admin@example.com already exists
+2025-09-20 14:43:16,015 - INFO - HTTP Request: POST http://testserver/admin/register "HTTP/1.1 400 Bad Request"
+2025-09-20 14:43:16,508 - INFO - Admin logged in: admin@example.com
+2025-09-20 14:43:16,508 - INFO - Admin logged in successfully: admin@example.com
+2025-09-20 14:43:16,508 - INFO - login executed in 489 ms
+2025-09-20 14:43:16,509 - INFO - HTTP Request: POST http://testserver/admin/login "HTTP/1.1 200 OK"
+2025-09-20 14:43:16,511 - INFO - Admin [{'sub': '68cd78a7aeb816a69f41703c', 'role': 'admin', 'exp': 1758363196}] requested analytics
+2025-09-20 14:43:16,511 - INFO - Fetching analytics data...
+2025-09-20 14:43:18,055 - INFO - Analytics generated successfully: {'tenants': {'total': 31, 'active': 31, 'inactive': 0, 'by_plan': {'free': 0, 'premium': 31, 'enterprise': 0}}, 'billing': {'total_invoices': 13}}
+2025-09-20 14:43:18,056 - INFO - analytics executed in 1545 ms
+2025-09-20 14:43:18,057 - INFO - HTTP Request: GET http://testserver/admin/analytics "HTTP/1.1 200 OK"
+2025-09-20 14:43:18,274 - WARNING - Admin registration failed: admin@example.com already exists
+2025-09-20 14:43:18,275 - INFO - HTTP Request: POST http://testserver/admin/register "HTTP/1.1 400 Bad Request"
+2025-09-20 14:43:18,639 - INFO - Admin logged in: admin@example.com
+2025-09-20 14:43:18,639 - INFO - Admin logged in successfully: admin@example.com
+2025-09-20 14:43:18,640 - INFO - login executed in 360 ms
+2025-09-20 14:43:18,640 - INFO - HTTP Request: POST http://testserver/admin/login "HTTP/1.1 200 OK"
+2025-09-20 14:43:18,940 - INFO - Tenant created: Tenant_f43a9e3a (tenant_id=61, id=68ce702ea963ebc37b180d8a)
+2025-09-20 14:43:19,044 - INFO - add_tenant executed in 401 ms
+2025-09-20 14:43:19,045 - INFO - HTTP Request: POST http://testserver/tenants/ "HTTP/1.1 200 OK"
+2025-09-20 14:43:19,456 - INFO - Notification to Tenant_f43a9e3a (ID: 61): Test notification
+2025-09-20 14:43:19,457 - INFO - Admin 68cd78a7aeb816a69f41703c sent notification to tenant 61: Test notification
+2025-09-20 14:43:19,457 - INFO - notify_tenant executed in 406 ms
+2025-09-20 14:43:19,458 - INFO - notify_tenant executed in 407 ms
+2025-09-20 14:43:19,459 - INFO - HTTP Request: POST http://testserver/admin/notify/61 "HTTP/1.1 200 OK"
+2025-09-20 14:43:19,473 - INFO - HTTP Request: GET http://testserver/ "HTTP/1.1 200 OK"
+2025-09-20 14:43:19,483 - INFO - HTTP Request: GET http://testserver/docs "HTTP/1.1 200 OK"
+2025-09-20 14:43:20,322 - INFO - Tenant created: Tenant_2aab8466 (tenant_id=62, id=68ce7030a963ebc37b180d8c)
+2025-09-20 14:43:20,527 - INFO - add_tenant executed in 1036 ms
+2025-09-20 14:43:20,528 - INFO - HTTP Request: POST http://testserver/tenants/ "HTTP/1.1 200 OK"
+2025-09-20 14:43:21,448 - INFO - Tenant created: Tenant_a589699c (tenant_id=63, id=68ce7031a963ebc37b180d8d)
+2025-09-20 14:43:21,536 - INFO - add_tenant executed in 997 ms
+2025-09-20 14:43:21,538 - INFO - HTTP Request: POST http://testserver/tenants/ "HTTP/1.1 200 OK"
+2025-09-20 14:43:21,704 - INFO - Fetched 34 tenants from database.
+2025-09-20 14:43:21,705 - INFO - list_tenants executed in 163 ms
+2025-09-20 14:43:21,708 - INFO - HTTP Request: GET http://testserver/tenants/ "HTTP/1.1 200 OK"
+2025-09-20 14:46:45,126 - WARNING - Admin registration failed: admin@example.com already exists
+2025-09-20 14:46:45,129 - INFO - HTTP Request: POST http://testserver/admin/register "HTTP/1.1 400 Bad Request"
+2025-09-20 14:46:45,224 - WARNING - Admin registration failed: admin@example.com already exists
+2025-09-20 14:46:45,226 - INFO - HTTP Request: POST http://testserver/admin/register "HTTP/1.1 400 Bad Request"
+2025-09-20 14:46:45,813 - INFO - Admin logged in: admin@example.com
+2025-09-20 14:46:45,813 - INFO - Admin logged in successfully: admin@example.com
+2025-09-20 14:46:45,813 - INFO - login executed in 574 ms
+2025-09-20 14:46:45,813 - INFO - HTTP Request: POST http://testserver/admin/login "HTTP/1.1 200 OK"
+2025-09-20 14:46:46,127 - WARNING - Admin registration failed: admin@example.com already exists
+2025-09-20 14:46:46,129 - INFO - HTTP Request: POST http://testserver/admin/register "HTTP/1.1 400 Bad Request"
+2025-09-20 14:46:46,504 - INFO - Admin logged in: admin@example.com
+2025-09-20 14:46:46,504 - INFO - Admin logged in successfully: admin@example.com
+2025-09-20 14:46:46,504 - INFO - login executed in 371 ms
+2025-09-20 14:46:46,505 - INFO - HTTP Request: POST http://testserver/admin/login "HTTP/1.1 200 OK"
+2025-09-20 14:46:46,507 - INFO - Admin [{'sub': '68cd78a7aeb816a69f41703c', 'role': 'admin', 'exp': 1758363406}] requested analytics
+2025-09-20 14:46:46,507 - INFO - Fetching analytics data...
+2025-09-20 14:46:47,886 - INFO - Analytics generated successfully: {'tenants': {'total': 34, 'active': 34, 'inactive': 0, 'by_plan': {'free': 0, 'premium': 34, 'enterprise': 0}}, 'billing': {'total_invoices': 13}}
+2025-09-20 14:46:47,886 - INFO - analytics executed in 1380 ms
+2025-09-20 14:46:47,888 - INFO - HTTP Request: GET http://testserver/admin/analytics "HTTP/1.1 200 OK"
+2025-09-20 14:46:47,999 - WARNING - Admin registration failed: admin@example.com already exists
+2025-09-20 14:46:48,000 - INFO - HTTP Request: POST http://testserver/admin/register "HTTP/1.1 400 Bad Request"
+2025-09-20 14:46:48,354 - INFO - Admin logged in: admin@example.com
+2025-09-20 14:46:48,354 - INFO - Admin logged in successfully: admin@example.com
+2025-09-20 14:46:48,354 - INFO - login executed in 350 ms
+2025-09-20 14:46:48,355 - INFO - HTTP Request: POST http://testserver/admin/login "HTTP/1.1 200 OK"
+2025-09-20 14:46:48,798 - INFO - Tenant created: Tenant_0f5f7f0d (tenant_id=64, id=68ce71005e81074b228ff568)
+2025-09-20 14:46:49,013 - INFO - add_tenant executed in 655 ms
+2025-09-20 14:46:49,014 - INFO - HTTP Request: POST http://testserver/tenants/ "HTTP/1.1 200 OK"
+2025-09-20 14:46:49,195 - INFO - Notification to Tenant_0f5f7f0d (ID: 64): Test notification
+2025-09-20 14:46:49,195 - INFO - Admin 68cd78a7aeb816a69f41703c sent notification to tenant 64: Test notification
+2025-09-20 14:46:49,196 - INFO - notify_tenant executed in 175 ms
+2025-09-20 14:46:49,196 - INFO - notify_tenant executed in 176 ms
+2025-09-20 14:46:49,197 - INFO - HTTP Request: POST http://testserver/admin/notify/64 "HTTP/1.1 200 OK"
+2025-09-20 14:46:49,217 - INFO - HTTP Request: GET http://testserver/ "HTTP/1.1 200 OK"
+2025-09-20 14:46:49,237 - INFO - HTTP Request: GET http://testserver/docs "HTTP/1.1 200 OK"
+2025-09-20 14:46:49,499 - INFO - Tenant created: Tenant_f63d8b2c (tenant_id=65, id=68ce71015e81074b228ff56a)
+2025-09-20 14:46:49,576 - INFO - add_tenant executed in 326 ms
+2025-09-20 14:46:49,577 - INFO - HTTP Request: POST http://testserver/tenants/ "HTTP/1.1 200 OK"
+2025-09-20 14:46:49,934 - INFO - Tenant created: Tenant_25d40089 (tenant_id=66, id=68ce71015e81074b228ff56b)
+2025-09-20 14:46:50,036 - INFO - add_tenant executed in 446 ms
+2025-09-20 14:46:50,037 - INFO - HTTP Request: POST http://testserver/tenants/ "HTTP/1.1 200 OK"
+2025-09-20 14:46:50,211 - INFO - Fetched 37 tenants from database.
+2025-09-20 14:46:50,211 - INFO - list_tenants executed in 170 ms
+2025-09-20 14:46:50,214 - INFO - HTTP Request: GET http://testserver/tenants/ "HTTP/1.1 200 OK"
