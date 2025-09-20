@@ -16,7 +16,7 @@ jobs:
         ports:
           - 27017:27017
         options: >-
-          --health-cmd "mongosh --eval 'db.adminCommand(\"ping\")'"
+          --health-cmd "echo 'db.runCommand({ ping: 1 })' | mongosh localhost:27017/test --quiet"
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
@@ -29,7 +29,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: 3.12
+          python-version: "3.12"
 
       # 3. Install dependencies
       - name: Install dependencies
@@ -37,17 +37,9 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r saas_billing_API/requirements.txt
 
-      # 4. Wait for MongoDB to be ready
-      - name: Wait for MongoDB
-        run: |
-          until mongosh --eval 'db.adminCommand("ping")' > /dev/null 2>&1; do
-            echo "Waiting for MongoDB..."
-            sleep 2
-          done
-
-      # 5. Run tests
+      # 4. Run tests (MongoDB is healthy now)
       - name: Run tests
         env:
-          MONGO_URI: mongodb://localhost:27017  # matches your mongo.py
+          MONGO_URI: mongodb://localhost:27017
         run: |
-          pytest -v
+          pytest -v saas_billing_API/tests
