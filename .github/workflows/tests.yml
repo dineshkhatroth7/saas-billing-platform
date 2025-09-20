@@ -1,24 +1,17 @@
-# File: .github/workflows/tests.yml
-name: Run Tests   # Workflow name (appears in GitHub Actions)
-
-on:               # Triggers
-  push:
-    branches: [ main ]   # Run on push to main branch
-  pull_request:
-    branches: [ main ]   # Run on PR targeting main
-
 jobs:
-  test:                 # Job name
-    runs-on: ubuntu-latest   # Runner environment (Linux VM)
-
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: saas_billing_API   # <-- add this
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4   # Pulls your repo code
+        uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.13"    # Your Python version
+          python-version: "3.13"
 
       - name: Install dependencies
         run: |
@@ -28,3 +21,4 @@ jobs:
 
       - name: Run tests
         run: pytest -v
+
