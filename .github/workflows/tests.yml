@@ -5,7 +5,7 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
-  workflow_dispatch:   # Keep workflow_dispatch from local changes
+  workflow_dispatch:
 
 jobs:
   test:
@@ -19,7 +19,7 @@ jobs:
 
     env:
       SECRET_KEY: "test_secret"   # Provide SECRET_KEY for CI
-      ALGORITHM: "HS256"          # Optional, just in case
+      ALGORITHM: "HS256"
 
     steps:
       - name: Checkout code
@@ -32,12 +32,10 @@ jobs:
 
       - name: Install dependencies
         run: |
-          cd saas_billing_API
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          pip install -r saas_billing_API/requirements.txt
           pip install pytest pytest-asyncio httpx pymongo
 
       - name: Run tests
         run: |
-          cd saas_billing_API
-          pytest -v
+          pytest -v saas_billing_API/tests

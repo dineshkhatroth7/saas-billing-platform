@@ -2,7 +2,7 @@ import sys
 import os
 import pytest
 from fastapi.testclient import TestClient
-from saas_billing_API.main import app
+from main import app
 
 # Add project root to sys.path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
