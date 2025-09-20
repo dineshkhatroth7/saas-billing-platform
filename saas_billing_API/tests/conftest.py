@@ -1,13 +1,11 @@
-
 import sys
 import os
-
-# Add project root to sys.path
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-# tests/conftest.py
 import pytest
 from fastapi.testclient import TestClient
 from main import app
+
+# Add project root to sys.path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 @pytest.fixture(scope="session")
 def client():
@@ -22,11 +20,16 @@ def admin_credentials():
 @pytest.fixture
 def admin_token(client, admin_credentials):
     """Register/login admin and return JWT."""
-    # Register
-    response = client.post("/admin/register", json=admin_credentials)
-    # Ignore error if already exists
+    # Attempt registration (ignore if already exists)
+    client.post("/admin/register", json=admin_credentials)
+    
     # Login
     response = client.post("/admin/login", json=admin_credentials)
-    return response.json()["access_token"]
-
-
+    if response.status_code != 200:
+        raise Exception(f"Admin login failed: {response.status_code}, {response.text}")
+    
+    token = response.json().get("access_token")
+    if not token:
+        raise Exception("Admin login did not return access_token")
+    
+    return token

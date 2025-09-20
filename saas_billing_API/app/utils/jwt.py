@@ -4,9 +4,10 @@ from datetime import datetime, timedelta, timezone
 from fastapi import HTTPException, Header
 
 
-SECRET_KEY = os.getenv("SECRET_KEY")
+SECRET_KEY = os.getenv("SECRET_KEY", "test_secret")  # fallback if not set
 ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 60  
+ACCESS_TOKEN_EXPIRE_MINUTES = 60
+
 
 
 def create_access_token(data: dict, expires_minutes: int = ACCESS_TOKEN_EXPIRE_MINUTES) -> str:
