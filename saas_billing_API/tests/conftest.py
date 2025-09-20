@@ -4,8 +4,8 @@ import pytest
 from fastapi.testclient import TestClient
 
 from saas_billing_API.main import app
-# Add project root to sys.path
-sys.path.append(os.path.dirname(os.path.dirname(__file__))) 
+import asyncio
+from saas_billing_API.app.db.mongo import tenants_collection, admins_collection, invoices_collection, notifications_collection
 
 
 @pytest.fixture(scope="session")
@@ -34,3 +34,16 @@ def admin_token(client, admin_credentials):
         raise Exception("Admin login did not return access_token")
     
     return token
+
+@pytest.fixture(autouse=True)
+async def clear_db():
+    """
+    This fixture runs before each test and clears all collections.
+    """
+    # Delete all documents from collections
+    await tenants_collection.delete_many({})
+    await admins_collection.delete_many({})
+    await invoices_collection.delete_many({})
+    await notifications_collection.delete_many({})
+    # Allow any pending operations to complete
+    await asyncio.sleep(0.1)

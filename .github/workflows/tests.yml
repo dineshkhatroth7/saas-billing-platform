@@ -1,41 +1,43 @@
-name: Python Tests
+name: FastAPI Tests
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
   pull_request:
+    branches: [main]
 
 jobs:
   test:
     runs-on: ubuntu-latest
 
-    steps:
-      # 1️⃣ Checkout the repository
-      - name: Checkout repository
-        uses: actions/checkout@v3
+    # Start MongoDB service
+    services:
+      mongo:
+        image: mongo:7
+        ports:
+          - 27017:27017
+        options: --bind_ip_all
 
-      # 2️⃣ Set up Python 3.12
+    steps:
+      # Step 1: Checkout code
+      - uses: actions/checkout@v3
+
+      # Step 2: Set up Python
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: 3.12
 
-      # 3️⃣ Cache pip dependencies
-      - name: Cache pip
-        uses: actions/cache@v3
-        with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('saas_billing_API/requirements.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-pip-
-
-      # 4️⃣ Install dependencies
+      # Step 3: Install dependencies
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r saas_billing_API/requirements.txt
+          pip install -r requirements.txt
 
-      # 5️⃣ Run tests with verbose output and short tracebacks
-      - name: Run pytest
-        run: pytest -v saas_billing_API/tests --maxfail=5 --tb=short
+      # Step 4: Run tests
+      - name: Run tests
+        env:
+          MONGO_URI: mongodb://localhost:27017
+          DB_NAME: saas_billing_test
+        run: |
+          pytest -v
