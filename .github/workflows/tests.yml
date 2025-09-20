@@ -1,24 +1,37 @@
+name: Run Tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:   # allows manual trigger
+
 jobs:
   test:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: saas_billing_API   # <-- add this
+
     steps:
+      # 1️⃣ Checkout repository
       - name: Checkout code
         uses: actions/checkout@v4
 
+      # 2️⃣ Set up Python
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.13"
 
+      # 3️⃣ Install dependencies from saas_billing_API folder
       - name: Install dependencies
         run: |
+          cd saas_billing_API
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install pytest pytest-asyncio httpx
 
+      # 4️⃣ Run tests
       - name: Run tests
-        run: pytest -v
-
+        run: |
+          cd saas_billing_API
+          pytest -v
