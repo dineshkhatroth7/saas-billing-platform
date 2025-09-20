@@ -41,9 +41,11 @@ async def clear_db():
     This fixture runs before each test and clears all collections.
     """
     # Delete all documents from collections
-    await tenants_collection.delete_many({})
-    await admins_collection.delete_many({})
-    await invoices_collection.delete_many({})
-    await notifications_collection.delete_many({})
-    # Allow any pending operations to complete
+    await asyncio.gather(
+        tenants_collection.delete_many({}),
+        admins_collection.delete_many({}),
+        invoices_collection.delete_many({}),
+        notifications_collection.delete_many({})
+    )
+    # Slight pause to ensure MongoDB processes deletions
     await asyncio.sleep(0.1)
