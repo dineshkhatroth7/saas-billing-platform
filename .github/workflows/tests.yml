@@ -5,26 +5,21 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
-<<<<<<< HEAD
-  workflow_dispatch:
-=======
->>>>>>> a5e5794 (updated the files to make the github action run correctly)
+  workflow_dispatch:   # Keep workflow_dispatch from local changes
 
 jobs:
   test:
     runs-on: ubuntu-latest
-<<<<<<< HEAD
 
     services:
       mongo:
         image: mongo:7.0
         ports:
           - 27017:27017
-=======
+
     env:
       SECRET_KEY: "test_secret"   # Provide SECRET_KEY for CI
       ALGORITHM: "HS256"          # Optional, just in case
->>>>>>> a5e5794 (updated the files to make the github action run correctly)
 
     steps:
       - name: Checkout code
